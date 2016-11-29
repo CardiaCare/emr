@@ -74,7 +74,12 @@ $config = [
 
                 // survey methods
 
-                ''
+                '',
+                
+                // blood pressure methods
+                'POST bloodpressure' => 'emr/bloodpressure/create',
+                'GET bloodpressure' => 'emr/bloodpressure/index',
+                'GET bloodpressure/<id:\d+>' => 'emr/bloodpressure/index'
             ],
         ],
     ],
