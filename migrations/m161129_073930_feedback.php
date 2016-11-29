@@ -6,24 +6,25 @@ class m161129_073930_feedback extends Migration
 {
     public function up()
     {
-
+        $this->createTable('feedback', array(
+            'id' => $this->primaryKey(),
+            'file' => $this->string()->notNull(),
+            'patient_id' => $this->integer(),
+            'created_at' => $this->integer()
+        ));
+        $this->addForeignKey(
+            'fk-que-patient-id',
+            'feedback',
+            'patient_id',
+            'user',
+            'id',
+            'CASCADE'
+        );
     }
 
     public function down()
     {
-        echo "m161129_073930_feedback cannot be reverted.\n";
-
-        return false;
+        $this->dropForeignKey('fk-que-patient-id', 'feedback');
+        $this->dropTable('feedback');
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }
