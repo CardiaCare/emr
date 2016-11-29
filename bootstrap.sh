@@ -34,6 +34,13 @@ echo "
         AllowOverride All
         Order allow,deny
         Allow from all
+	<Limit GET HEAD POST PUT DELETE OPTIONS>
+          # Deprecated apache 2.2 syntax:
+          # Order Allow,Deny
+          # Allow from all
+          # Apache > 2.4 requires:
+          Require all granted
+	</Limit>
     </Directory>
 </VirtualHost>
 " > /etc/apache2/sites-available/emr.conf

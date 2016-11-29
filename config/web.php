@@ -71,6 +71,10 @@ $config = [
                 'GET archive/organizations/<id:\d+>/revision/<revision:\d+>' => 'archive/organization/view',
                 'GET archive/patients' => 'archive/patient/index',
                 'GET archive/patients/<id:\d+>/revision/<revision:\d+>' => 'archive/patient/view',
+
+                // survey methods
+
+                ''
             ],
         ],
     ],
