@@ -6,14 +6,27 @@ class m161129_091910_bloodpressure extends Migration
 {
     public function up()
     {
-
+        $this->createTable('bloodpressure', array(
+            'id' => $this->primaryKey(),
+            'patient_id' => $this->integer(),
+            'systolic' => $this->integer()->notNull(),
+            'diastolic' => $this->integer()->notNull(),
+            'created_at' => $this->integer()
+        ));
+        $this->addForeignKey(
+            'fk-que-patient-id',
+            'bloodpressure',
+            'patient_id',
+            'user',
+            'id',
+            'CASCADE'
+        );
     }
 
     public function down()
     {
-        echo "m161129_091910_bloodpressure cannot be reverted.\n";
-
-        return false;
+        $this->dropForeignKey('fk-que-patient-id', 'bloodpressure');
+        $this->dropTable('bloodpressure');
     }
 
     /*
