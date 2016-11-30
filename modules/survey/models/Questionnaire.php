@@ -5,6 +5,7 @@ namespace app\modules\survey\models;
 use app\modules\organization\models\Doctor;
 use app\modules\survey\query\QuestionnaireQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class Questionnaire extends ActiveRecord
 {
@@ -18,6 +19,18 @@ class Questionnaire extends ActiveRecord
             [['data', 'version'], 'required', 'message' => '{attribute} не может быть пустым'],
             ['version', 'string'],
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            $this->doctor_id = \Yii::$app->user->identity->doctor->id;
+        }
+
+        return parent::beforeSave($insert);
     }
 
     /**

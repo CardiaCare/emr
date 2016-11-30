@@ -33,6 +33,7 @@ class Feedback extends ActiveRecord
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
+            $this->patient_id = \Yii::$app->user->identity->patient->id;
             $this->created_at = new Expression('NOW()');
         }
 
