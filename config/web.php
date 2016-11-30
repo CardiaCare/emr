@@ -74,12 +74,21 @@ $config = [
 
                 // survey methods
 
-                '',
+                'POST survey' => 'survey/questionnaire/create',
+                'GET survey' => 'survey/questionnaire/index',
+                'GET survey/<id:\d+>' => 'survey/questionnaire/view',
+                'DELETE survey/<id:\d+>' => 'survey/questionnaire/delete',
+
+                'POST feedback' => 'survey/feedback/create',
+                'GET feedback' => 'survey/feedback/index',
+                'GET feedback/<id:\d+>' => 'survey/feedback/view',
+                'DELETE feedback/<id:\d+>' => 'survey/feedback/delete',
                 
                 // blood pressure methods
                 'POST bloodpressure' => 'emr/bloodpressure/create',
                 'GET bloodpressure' => 'emr/bloodpressure/index',
-                'GET bloodpressure/<id:\d+>' => 'emr/bloodpressure/index'
+                'GET bloodpressure/<id:\d+>' => 'emr/bloodpressure/view',
+                'DELETE bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete'
             ],
         ],
     ],
