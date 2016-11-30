@@ -12,6 +12,7 @@ namespace app\modules\survey\models;
 use app\modules\emr\models\Patient;
 use app\modules\survey\query\FeedbackQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class Feedback extends ActiveRecord
 {
@@ -21,10 +22,21 @@ class Feedback extends ActiveRecord
     public function rules() : array
     {
         return array(
-            ['file', 'string'],
-            ['created_at', 'int'],
-
+            ['data', 'string'],
+            [['data'], 'required', 'message' => '{attribute} не может быть пустым']
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if ($this->isNewRecord) {
+            $this->created_at = new Expression('NOW()');
+        }
+
+        return parent::beforeSave($insert);
     }
 
     /**

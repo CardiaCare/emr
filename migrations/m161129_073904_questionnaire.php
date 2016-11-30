@@ -8,7 +8,6 @@ class m161129_073904_questionnaire extends Migration
     {
         $this->createTable('questionnaire', array(
             'id' => $this->primaryKey(),
-            'file' => $this->string()->notNull(),
             'doctor_id' => $this->integer()->notNull(),
             'data' => $this->text()->notNull(),
             'version' => $this->string()

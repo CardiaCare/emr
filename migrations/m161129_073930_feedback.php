@@ -8,7 +8,6 @@ class m161129_073930_feedback extends Migration
     {
         $this->createTable('feedback', array(
             'id' => $this->primaryKey(),
-            'file' => $this->string()->notNull(),
             'patient_id' => $this->integer()->notNull(),
             'questionnaire_id' => $this->integer()->notNull(),
             'data' => $this->text()->notNull(),
