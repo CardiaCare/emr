@@ -14,7 +14,7 @@ class m161129_091910_bloodpressure extends Migration
             'created_at' => $this->integer()
         ));
         $this->addForeignKey(
-            'fk-que-patient-id',
+            'fk-blood-patient-id',
             'bloodpressure',
             'patient_id',
             'user',
