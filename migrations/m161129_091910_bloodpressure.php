@@ -25,7 +25,7 @@ class m161129_091910_bloodpressure extends Migration
 
     public function down()
     {
-        $this->dropForeignKey('fk-que-patient-id', 'bloodpressure');
+        $this->dropForeignKey('fk-blood-patient-id', 'bloodpressure');
         $this->dropTable('bloodpressure');
     }
 
