@@ -16,6 +16,7 @@ use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Description of BloodPressureController
@@ -52,6 +53,9 @@ class BloodPressureController extends RestController
                 'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
+                    'view' => ['get'],
+                    'index' => ['get'],
+                    'delete' => ['delete']
                 ],
             ],
         ];
@@ -59,7 +63,19 @@ class BloodPressureController extends RestController
 
     public function actionCreate()
     {
+        $model = new BloodPressure();
 
+        $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
+
+        if ($model->save()) {
+            \Yii::$app->response->setStatusCode(201);
+            return $model;
+        } elseif ($model->hasErrors()) {
+            \Yii::$app->response->setStatusCode(422);
+            return ['errors' => $model->getErrors()];
+        } else {
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+        }
     }
 
     public function actionIndex()
@@ -86,7 +102,7 @@ class BloodPressureController extends RestController
             ->one();
 
         $model->delete();
-        
+
         \Yii::$app->response->setStatusCode(204);
     }
 }

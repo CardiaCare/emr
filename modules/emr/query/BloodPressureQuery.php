@@ -16,13 +16,14 @@ use yii\db\ActiveQuery;
  *
  * @author Yulia Zavyalova
  */
-class BloodPressureQuery  extends ActiveQuery{
+class BloodPressureQuery extends ActiveQuery
+{
 
     public function byId(int $id) : BloodPressureQuery
     {
         return $this->andWhere(['id' => $id]);
     }
-    
+
     /**
      * @param  int $id
      * @return BloodPressureQuery
@@ -31,8 +32,8 @@ class BloodPressureQuery  extends ActiveQuery{
     {
         return $this->andWhere(['bloodpressure.patient_id' => $id]);
     }
-    
-    
+
+
     /**
      * @inheritdoc
      * @return \app\modules\emr\models\BloodPressure[]|array

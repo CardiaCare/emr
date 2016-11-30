@@ -3,8 +3,8 @@
 namespace app\modules\emr\models;
 
 
-use app\modules\emr\models\Patient;
 use app\modules\emr\query\BloodPressureQuery;
+use yii\db\ActiveRecord;
 
 
 /**
@@ -12,20 +12,21 @@ use app\modules\emr\query\BloodPressureQuery;
  *
  * @author Yulia Zavyalova
  */
-class BloodPressure extends ActiveRecord{
+class BloodPressure extends ActiveRecord
+{
     //put your code here
-    
-        /**
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPatient()
     {
         return $this->hasOne(Patient::className(), ['id' => 'patient_id']);
     }
-    
+
     /**
      * @inheritdoc
-     * @return \app\modules\emr\query\BloodPressureQuery 
+     * @return \app\modules\emr\query\BloodPressureQuery
      */
     public static function find()
     {
@@ -38,6 +39,6 @@ class BloodPressure extends ActiveRecord{
     public static function tableName()
     {
         return 'bloodpressure';
-    } 
-    
+    }
+
 }

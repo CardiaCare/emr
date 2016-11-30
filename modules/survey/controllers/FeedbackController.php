@@ -50,6 +50,9 @@ class FeedbackController extends RestController
                 'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
+                    'view' => ['get'],
+                    'index' => ['get'],
+                    'delete' => ['delete']
                 ],
             ],
         ];
