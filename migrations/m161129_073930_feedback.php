@@ -11,7 +11,7 @@ class m161129_073930_feedback extends Migration
             'patient_id' => $this->integer()->notNull(),
             'questionnaire_id' => $this->integer()->notNull(),
             'data' => $this->text()->notNull(),
-            'created_at' => $this->integer()
+            'created_at' => $this->dateTime()->notNull()
         ));
         $this->addForeignKey(
             'fk-que-patient-id',
