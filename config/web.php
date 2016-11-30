@@ -3,6 +3,7 @@
 use app\modules\archive\ArchiveModule;
 use app\modules\emr\EmrModule;
 use app\modules\organization\OrganizationModule;
+use app\modules\survey\SurveyModule;
 use app\modules\user\UserModule;
 
 $config = [
@@ -11,10 +12,11 @@ $config = [
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
     'modules' => [
-        'user'         => UserModule::class,
-        'emr'          => EmrModule::class,
+        'user' => UserModule::class,
+        'emr' => EmrModule::class,
         'organization' => OrganizationModule::class,
-        'archive'      => ArchiveModule::class,
+        'archive' => ArchiveModule::class,
+        'survey' => SurveyModule::class
     ],
     'components' => [
         'request' => [
@@ -83,7 +85,7 @@ $config = [
                 'GET feedback' => 'survey/feedback/index',
                 'GET feedback/<id:\d+>' => 'survey/feedback/view',
                 'DELETE feedback/<id:\d+>' => 'survey/feedback/delete',
-                
+
                 // blood pressure methods
                 'POST bloodpressure' => 'emr/bloodpressure/create',
                 'GET bloodpressure' => 'emr/bloodpressure/index',
