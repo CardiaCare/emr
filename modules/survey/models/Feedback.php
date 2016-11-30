@@ -23,7 +23,8 @@ class Feedback extends ActiveRecord
     {
         return array(
             ['data', 'string'],
-            [['data'], 'required', 'message' => '{attribute} не может быть пустым']
+            ['questionnaire_id', 'integer'],
+            [['data', 'questionnaire_id'], 'required', 'message' => '{attribute} не может быть пустым']
         );
     }
 
@@ -33,7 +34,7 @@ class Feedback extends ActiveRecord
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
-            $this->patient_id = \Yii::$app->user->identity->patient->id;
+            $this->patient_id = \Yii::$app->user->identity->id;
             $this->created_at = new Expression('NOW()');
         }
 
