@@ -37,7 +37,7 @@ class BiosignalController extends RestController
                 'rules' => [
                     [
                         'allow'   => true,
-                        'actions' => ['create'],
+                        'actions' => ['create', 'options'],
                         'roles'   => [User::ROLE_PATIENT],
                     ],
                 ],
@@ -46,6 +46,7 @@ class BiosignalController extends RestController
                 'class'   => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
+                    'options' => ['options'],
                 ],
             ],
         ];
@@ -87,5 +88,10 @@ class BiosignalController extends RestController
         } else {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
+    }
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

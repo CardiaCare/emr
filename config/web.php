@@ -52,16 +52,20 @@ $config = [
 
 
                 'POST invites' => 'user/invite/create',
+                'OPTIONS invites' => 'user/invite/options',
                 'GET invites' => 'user/invite/index',
                 'GET invites/<id:\d+>' => 'user/invite/view',
                 'POST recovery' => 'user/recovery/request',
+                'OPTIONS recovery' => 'user/recovery/options',
                 'PUT user/password' => 'user/recovery/recover',
 
                 // emr module
                 'POST tests' => 'emr/test/create',
+                'OPTIONS tests' => 'emr/test/options',
                 'GET tests' => 'emr/test/index',
                 'GET tests/<id:\d+>' => 'emr/test/index',
                 'POST biosignals' => 'emr/biosignal/create',
+                'OPTIONS biosignals' => 'emr/biosignal/options',
                 'GET patients' => 'emr/patient/index',
                 'GET patients/<id:\d+>' => 'emr/patient/view',
                 'PUT patients/<id:\d+>' => 'emr/patient/update',
@@ -80,17 +84,20 @@ $config = [
                 // survey methods
 
                 'POST survey' => 'survey/questionnaire/create',
+                'OPTIONS survey' => 'survey/questionnaire/options',
                 'GET survey' => 'survey/questionnaire/index',
                 'GET survey/<id:\d+>' => 'survey/questionnaire/view',
                 'DELETE survey/<id:\d+>' => 'survey/questionnaire/delete',
 
                 'POST feedback' => 'survey/feedback/create',
+                 'OPTIONS feedback' => 'survey/feedback/options',
                 'GET feedback' => 'survey/feedback/index',
                 'GET feedback/<id:\d+>' => 'survey/feedback/view',
                 'DELETE feedback/<id:\d+>' => 'survey/feedback/delete',
 
                 // blood pressure methods
                 'POST bloodpressure' => 'emr/bloodpressure/create',
+                'OPTIONS bloodpressure' => 'emr/bloodpressure/options',
                 'GET bloodpressure' => 'emr/bloodpressure/index',
                 'GET bloodpressure/<id:\d+>' => 'emr/bloodpressure/view',
                 'DELETE bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete'

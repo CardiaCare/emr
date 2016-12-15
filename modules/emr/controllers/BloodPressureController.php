@@ -44,7 +44,7 @@ class BloodPressureController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create'],
+                        'actions' => ['create', 'options'],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                 ],
@@ -55,6 +55,7 @@ class BloodPressureController extends RestController
                     'create' => ['post'],
                     'view' => ['get'],
                     'index' => ['get'],
+                    'options' => ['options'],
                     'delete' => ['delete']
                 ],
             ],
@@ -104,5 +105,10 @@ class BloodPressureController extends RestController
         $model->delete();
 
         \Yii::$app->response->setStatusCode(204);
+    }
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

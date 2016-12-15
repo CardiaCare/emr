@@ -36,7 +36,7 @@ class QuestionnaireController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete', 'index', 'view'],
+                        'actions' => ['create', 'delete', 'index', 'view', 'options'],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
                 ],
@@ -47,6 +47,7 @@ class QuestionnaireController extends RestController
                     'create' => ['post'],
                     'index' => ['get'],
                     'view' => ['get'],
+                    'options' => ['options'],
                     'delete' => ['delete']
                 ],
             ],
@@ -99,5 +100,10 @@ class QuestionnaireController extends RestController
         $model->delete();
 
         \Yii::$app->response->setStatusCode(204);
+    }
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

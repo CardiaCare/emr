@@ -46,6 +46,7 @@ class InviteController extends RestController
                 'actions' => [
                     'create' => ['post'],
                     'delete' => ['delete'],
+                    'options' => ['options'],
                 ],
             ],
         ];
@@ -200,5 +201,12 @@ class InviteController extends RestController
         }
 
         return $invite;
+    }
+    
+    
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

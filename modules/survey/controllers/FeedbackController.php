@@ -36,12 +36,12 @@ class FeedbackController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete'],
+                        'actions' => ['create', 'delete', 'options'],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view', 'index'],
+                        'actions' => ['view', 'index', 'options'],
                         'roles' => [User::ROLE_PATIENT, User::ROLE_DOCTOR],
                     ],
                 ],
@@ -52,6 +52,7 @@ class FeedbackController extends RestController
                     'create' => ['post'],
                     'view' => ['get'],
                     'index' => ['get'],
+                    'options' => ['options'],
                     'delete' => ['delete']
                 ],
             ],
@@ -102,5 +103,10 @@ class FeedbackController extends RestController
         $model->delete();
 
         \Yii::$app->response->setStatusCode(204);
+    }
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

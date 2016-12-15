@@ -35,12 +35,12 @@ class TestController extends RestController
                 'rules' => [
                     [
                         'allow'   => true,
-                        'actions' => ['create'],
+                        'actions' => ['create', 'options'],
                         'roles'   => [User::ROLE_PATIENT],
                     ],
                     [
                         'allow'   => true,
-                        'actions' => ['index'],
+                        'actions' => ['index', 'options'],
                         'roles'   => [User::ROLE_DOCTOR],
                     ],
                 ],
@@ -49,6 +49,7 @@ class TestController extends RestController
                 'class'   => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
+                    'options' => ['options'],
                     'index'  => ['get'],
                 ],
             ],
@@ -165,5 +166,10 @@ class TestController extends RestController
         }
         
         return $query->all();
+    }
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

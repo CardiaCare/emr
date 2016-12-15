@@ -35,6 +35,7 @@ class RecoveryController extends RestController
                 'class'   => VerbFilter::class,
                 'actions' => [
                     'request' => ['post'],
+                    'options' => ['options'],
                     'recover' => ['put'],
                 ],
             ],
@@ -111,5 +112,11 @@ class RecoveryController extends RestController
         } else {
             throw new ServerErrorHttpException('Failed to recover password');
         }
+    }
+    
+    
+        public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }
