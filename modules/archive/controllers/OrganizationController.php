@@ -26,7 +26,7 @@ class OrganizationController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
-                'only'        => ['index', 'view'],
+                'only'        => ['index', 'view', 'options'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -36,6 +36,7 @@ class OrganizationController extends RestController
                 'actions' => [
                     'view'   => ['get'],
                     'index'  => ['get'],
+                     'options' => ['options'],
                 ],
             ],
             'accessControl' => [
@@ -160,5 +161,10 @@ class OrganizationController extends RestController
         }
 
         return $model;
+    }
+    
+    public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

@@ -67,6 +67,7 @@ $config = [
                 'POST biosignals' => 'emr/biosignal/create',
                 'OPTIONS biosignals' => 'emr/biosignal/options',
                 'GET patients' => 'emr/patient/index',
+                'OPTIONS patients' => 'emr/patients/options',
                 'GET patients/<id:\d+>' => 'emr/patient/view',
                 'PUT patients/<id:\d+>' => 'emr/patient/update',
                 'DELETE patients/<id:\d+>' => 'emr/patient/delete',
@@ -74,7 +75,9 @@ $config = [
                 // organization module
                 'GET organizations' => 'organization/organization/view',
                 'PUT organizations' => 'organization/organization/update',
-
+                'OPTIONS organizations' => 'emr/organizations/options',
+                
+                
                 // archive module
                 'GET archive/organizations' => 'archive/organization/index',
                 'GET archive/organizations/<id:\d+>/revision/<revision:\d+>' => 'archive/organization/view',

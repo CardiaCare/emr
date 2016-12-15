@@ -40,6 +40,7 @@ class PatientController extends RestController
                     'index'  => ['get'],
                     'update' => ['put'],
                     'view'   => ['get'],
+                     'options' => ['options'],
                     'delete' => ['delete'],
                 ],
             ],
@@ -248,5 +249,10 @@ class PatientController extends RestController
             ->execute();
 
         \Yii::$app->response->setStatusCode(204);
+    }
+    
+    public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }
