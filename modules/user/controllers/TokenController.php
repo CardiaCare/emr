@@ -13,7 +13,7 @@ use yii\web\ServerErrorHttpException;
 
 /**
  * Controller for managing auth tokens.
- * 
+ *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
 class TokenController extends RestController
@@ -25,8 +25,8 @@ class TokenController extends RestController
     {
         return [
             'authenticator' => [
-                'class'       => CompositeAuth::class,
-                'only'        => ['delete'],
+                'class' => CompositeAuth::class,
+                'only' => ['delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -35,22 +35,23 @@ class TokenController extends RestController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'allow'   => true,
-                        'actions' => ['create'],
-                        'roles'   => ['?'],
+                        'allow' => true,
+                        'actions' => ['create', 'options'],
+                        'roles' => ['?'],
                     ],
                     [
-                        'allow'   => true,
+                        'allow' => true,
                         'actions' => ['delete'],
-                        'roles'   => ['@'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],
             'verbFilter' => [
-                'class'   => VerbFilter::class,
+                'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
                     'delete' => ['delete'],
+                    'options' => ['options']
                 ],
             ],
         ];
@@ -112,7 +113,12 @@ class TokenController extends RestController
 
         UserToken::deleteAll([
             'user_id' => \Yii::$app->user->id,
-            'code'    => \Yii::$app->request->getAuthUser(),
+            'code' => \Yii::$app->request->getAuthUser(),
         ]);
+    }
+
+    public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }
