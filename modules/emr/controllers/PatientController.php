@@ -40,7 +40,7 @@ class PatientController extends RestController
                     'index'  => ['get'],
                     'update' => ['put'],
                     'view'   => ['get'],
-                     'options' => ['options'],
+                    'options' => ['options'],
                     'delete' => ['delete'],
                 ],
             ],
@@ -54,6 +54,7 @@ class PatientController extends RestController
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['update', 'index', 'view', 'delete'],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
                 ],
