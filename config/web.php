@@ -72,7 +72,7 @@ $config = [
                 'OPTIONS biosignals' => 'emr/biosignal/options',
                 
                 'GET patients' => 'emr/patient/index',
-                'OPTIONS patients' => 'emr/patients/options',
+                'OPTIONS patients' => 'emr/patient/options',
                 'GET patients/<id:\d+>' => 'emr/patient/view',
                 'PUT patients/<id:\d+>' => 'emr/patient/update',
                 'DELETE patients/<id:\d+>' => 'emr/patient/delete',
