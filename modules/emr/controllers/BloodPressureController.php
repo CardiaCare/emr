@@ -35,6 +35,7 @@ class BloodPressureController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
+                'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -44,13 +45,13 @@ class BloodPressureController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create'],
-                        'roles' => [User::ROLE_PATIENT],
+                        'actions' => ['options'],
+                        'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['options'],
-                        'roles' => ['?'],
+                        'actions' => ['create'],
+                        'roles' => [User::ROLE_PATIENT],
                     ]  
                 ],
             ],

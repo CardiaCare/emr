@@ -27,6 +27,7 @@ class FeedbackController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
+                'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -36,6 +37,11 @@ class FeedbackController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ] ,
+                    [
+                        'allow' => true,
                         'actions' => ['create', 'delete'],
                         'roles' => [User::ROLE_PATIENT],
                     ],
@@ -43,12 +49,7 @@ class FeedbackController extends RestController
                         'allow' => true,
                         'actions' => ['view', 'index'],
                         'roles' => [User::ROLE_PATIENT, User::ROLE_DOCTOR],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['options'],
-                        'roles' => ['?'],
-                    ]  
+                    ] 
                 ],
             ],
             'verbFilter' => [

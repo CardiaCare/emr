@@ -28,6 +28,7 @@ class InviteController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
+                'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -37,13 +38,13 @@ class InviteController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [Permissions::INVITE_USERS]
-                    ],
-                    [
-                        'allow' => true,
                         'actions' => ['options'],
                         'roles' => ['?'],
-                    ]  
+                    ] ,
+                    [
+                        'allow' => true,
+                        'roles' => [Permissions::INVITE_USERS]
+                    ] 
                 ],
             ],
             'verbFilter' => [

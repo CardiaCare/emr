@@ -26,6 +26,7 @@ class TestController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
+                'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -33,6 +34,11 @@ class TestController extends RestController
             'accessControl' => [
                 'class' => AccessControl::class,
                 'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ] ,
                     [
                         'allow'   => true,
                         'actions' => ['create'],
@@ -42,12 +48,7 @@ class TestController extends RestController
                         'allow'   => true,
                         'actions' => ['index'],
                         'roles'   => [User::ROLE_DOCTOR],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['options'],
-                        'roles' => ['?'],
-                    ]  
+                    ] 
                 ],
             ],
             'verbFilter' => [

@@ -27,6 +27,7 @@ class QuestionnaireController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
+                'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -36,13 +37,13 @@ class QuestionnaireController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete', 'index', 'view'],
-                        'roles' => [User::ROLE_DOCTOR],
+                        'actions' => ['options'],
+                        'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['options'],
-                        'roles' => ['?'],
+                        'actions' => ['create', 'delete', 'index', 'view'],
+                        'roles' => [User::ROLE_DOCTOR],
                     ]  
                 ],
             ],

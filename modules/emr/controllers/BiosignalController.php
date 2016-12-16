@@ -28,6 +28,7 @@ class BiosignalController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
+                'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -36,15 +37,15 @@ class BiosignalController extends RestController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'allow'   => true,
-                        'actions' => ['create'],
-                        'roles'   => [User::ROLE_PATIENT],
-                    ],
-                    [
                         'allow' => true,
                         'actions' => ['options'],
                         'roles' => ['?'],
-                    ]  
+                    ]  ,
+                    [
+                        'allow'   => true,
+                        'actions' => ['create'],
+                        'roles'   => [User::ROLE_PATIENT],
+                    ]
                 ],
             ],
             'verbFilter' => [
