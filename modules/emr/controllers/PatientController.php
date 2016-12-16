@@ -49,13 +49,13 @@ class PatientController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [User::ROLE_DOCTOR],
+                        'actions' => ['options'],
+                        'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['options'],
-                        'roles' => ['?'],
-                    ]                   
+                        'roles' => [User::ROLE_DOCTOR],
+                    ],
                 ],
             ],
         ];
