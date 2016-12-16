@@ -37,9 +37,14 @@ class BiosignalController extends RestController
                 'rules' => [
                     [
                         'allow'   => true,
-                        'actions' => ['create', 'options'],
+                        'actions' => ['create'],
                         'roles'   => [User::ROLE_PATIENT],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
             'verbFilter' => [

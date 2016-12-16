@@ -36,9 +36,14 @@ class QuestionnaireController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete', 'index', 'view', 'options'],
+                        'actions' => ['create', 'delete', 'index', 'view'],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
             'verbFilter' => [

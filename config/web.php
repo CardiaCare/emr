@@ -46,6 +46,8 @@ $config = [
             'rules' => [
                 // user module
                 'POST users' => 'user/user/create',
+                'OPTIONS users' => 'user/users/options',
+
                 'POST tokens' => 'user/token/create',
                 'DELETE tokens' => 'user/token/delete',
                 'OPTIONS tokens' => 'user/token/options',
@@ -55,6 +57,7 @@ $config = [
                 'OPTIONS invites' => 'user/invite/options',
                 'GET invites' => 'user/invite/index',
                 'GET invites/<id:\d+>' => 'user/invite/view',
+                
                 'POST recovery' => 'user/recovery/request',
                 'OPTIONS recovery' => 'user/recovery/options',
                 'PUT user/password' => 'user/recovery/recover',
@@ -64,8 +67,10 @@ $config = [
                 'OPTIONS tests' => 'emr/test/options',
                 'GET tests' => 'emr/test/index',
                 'GET tests/<id:\d+>' => 'emr/test/index',
+                
                 'POST biosignals' => 'emr/biosignal/create',
                 'OPTIONS biosignals' => 'emr/biosignal/options',
+                
                 'GET patients' => 'emr/patient/index',
                 'OPTIONS patients' => 'emr/patients/options',
                 'GET patients/<id:\d+>' => 'emr/patient/view',
@@ -80,8 +85,11 @@ $config = [
                 
                 // archive module
                 'GET archive/organizations' => 'archive/organization/index',
+                'OPTIONS  archive/organizations' => 'archive/organizations/options',
                 'GET archive/organizations/<id:\d+>/revision/<revision:\d+>' => 'archive/organization/view',
+                
                 'GET archive/patients' => 'archive/patient/index',
+                'OPTIONS  archive/patients' => 'archive/patients/options',
                 'GET archive/patients/<id:\d+>/revision/<revision:\d+>' => 'archive/patient/view',
 
                 // survey methods
@@ -93,7 +101,7 @@ $config = [
                 'DELETE survey/<id:\d+>' => 'survey/questionnaire/delete',
 
                 'POST feedback' => 'survey/feedback/create',
-                 'OPTIONS feedback' => 'survey/feedback/options',
+                'OPTIONS feedback' => 'survey/feedback/options',
                 'GET feedback' => 'survey/feedback/index',
                 'GET feedback/<id:\d+>' => 'survey/feedback/view',
                 'DELETE feedback/<id:\d+>' => 'survey/feedback/delete',

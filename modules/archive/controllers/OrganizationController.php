@@ -26,7 +26,7 @@ class OrganizationController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
-                'only'        => ['index', 'view', 'options'],
+                'only'        => ['index', 'view'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -46,6 +46,11 @@ class OrganizationController extends RestController
                         'allow' => true,
                         'roles' => [User::ROLE_CHIEF],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
         ];

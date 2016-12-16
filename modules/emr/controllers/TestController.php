@@ -35,14 +35,19 @@ class TestController extends RestController
                 'rules' => [
                     [
                         'allow'   => true,
-                        'actions' => ['create', 'options'],
+                        'actions' => ['create'],
                         'roles'   => [User::ROLE_PATIENT],
                     ],
                     [
                         'allow'   => true,
-                        'actions' => ['index', 'options'],
+                        'actions' => ['index'],
                         'roles'   => [User::ROLE_DOCTOR],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
             'verbFilter' => [

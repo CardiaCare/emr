@@ -36,6 +36,7 @@ class PatientController extends RestController
                 'actions' => [
                     'view'   => ['get'],
                     'index'  => ['get'],
+                    'options' => ['options'],
                 ],
             ],
             'accessControl' => [
@@ -45,6 +46,11 @@ class PatientController extends RestController
                         'allow' => true,
                         'roles' => [User::ROLE_DOCTOR],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
         ];
@@ -161,5 +167,10 @@ class PatientController extends RestController
         }
 
         return $model;
+    }
+    
+    public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

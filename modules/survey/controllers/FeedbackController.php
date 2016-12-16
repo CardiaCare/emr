@@ -36,14 +36,19 @@ class FeedbackController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete', 'options'],
+                        'actions' => ['create', 'delete'],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view', 'index', 'options'],
+                        'actions' => ['view', 'index'],
                         'roles' => [User::ROLE_PATIENT, User::ROLE_DOCTOR],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
             'verbFilter' => [

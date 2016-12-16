@@ -39,13 +39,19 @@ class OrganizationController extends RestController
                         'allow' => true,
                         'roles' => [Permissions::MANAGE_ORGANIZATIONS],
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
             'verbFilter' => [
                 'class'   => VerbFilter::class,
                 'actions' => [
                     'view'   => ['get'],
-                    'update' => ['put']
+                    'update' => ['put'],
+                    'options' => ['options'],
                 ],
             ],
         ];
@@ -165,5 +171,10 @@ class OrganizationController extends RestController
         } else {
             throw new ServerErrorHttpException('Failed to update organization for unknown reason.');
         }
+    }
+    
+    public function actionOptions()
+    {
+        \Yii::$app->response->setStatusCode(200);
     }
 }

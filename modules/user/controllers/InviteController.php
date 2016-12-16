@@ -39,6 +39,11 @@ class InviteController extends RestController
                         'allow' => true,
                         'roles' => [Permissions::INVITE_USERS]
                     ],
+                    [
+                        'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ]  
                 ],
             ],
             'verbFilter' => [
