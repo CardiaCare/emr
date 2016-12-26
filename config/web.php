@@ -46,7 +46,7 @@ $config = [
             'rules' => [
                 // user module
                 'POST users' => 'user/user/create',
-                'OPTIONS users' => 'user/users/options',
+                'OPTIONS users' => 'user/user/options',
 
                 'POST tokens' => 'user/token/create',
                 'DELETE tokens' => 'user/token/delete',

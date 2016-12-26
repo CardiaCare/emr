@@ -10,7 +10,7 @@ use yii\web\ServerErrorHttpException;
 
 /**
  * Controller for managing users.
- * 
+ *
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
 class UserController extends RestController
@@ -26,12 +26,17 @@ class UserController extends RestController
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['options'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
                         'roles' => ['?'],
                     ],
                 ],
             ],
             'verbFilter' => [
-                'class'   => VerbFilter::class,
+                'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
                     'options' => ['options']
@@ -39,7 +44,7 @@ class UserController extends RestController
             ],
         ];
     }
-    
+
     /**
      * @api {post} /users Create user
      * @apiVersion 1.0.0
@@ -80,7 +85,7 @@ class UserController extends RestController
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
     }
-    
+
     public function actionOptions()
     {
         \Yii::$app->response->setStatusCode(200);
