@@ -6,12 +6,12 @@ use app\controllers\RestController;
 use app\modules\user\models\UserInvite;
 use app\rbac\Permissions;
 use yii\filters\AccessControl;
-use yii\helpers\Url;
-use yii\web\NotFoundHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
+use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Controller for managing invites.
@@ -27,8 +27,8 @@ class InviteController extends RestController
     {
         return [
             'authenticator' => [
-                'class'       => CompositeAuth::class,
-                'only' => ['update', 'index', 'view', 'delete'],
+                'class' => CompositeAuth::class,
+                'only' => ['create', 'update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -40,15 +40,15 @@ class InviteController extends RestController
                         'allow' => true,
                         'actions' => ['options'],
                         'roles' => ['?'],
-                    ] ,
+                    ],
                     [
                         'allow' => true,
                         'roles' => [Permissions::INVITE_USERS]
-                    ] 
+                    ]
                 ],
             ],
             'verbFilter' => [
-                'class'   => VerbFilter::class,
+                'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
                     'delete' => ['delete'],
@@ -75,7 +75,7 @@ class InviteController extends RestController
      *     HTTP/1.1 422 Unprocessable Entity
      *     {
      *         "errors": {
-     *             "email": ["First error", "Second error"]
+     *             "email": ["First error", "Second error"],
      *         }
      *     }
      * @apiErrorExample {json} Unauthorized
@@ -99,7 +99,7 @@ class InviteController extends RestController
     {
         $model = new UserInvite([
             'referrer_id' => \Yii::$app->user->id,
-            'scenario'    => UserInvite::SCENARIO_DEFAULT, 
+            'scenario' => UserInvite::SCENARIO_DEFAULT,
         ]);
 
         $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
@@ -208,10 +208,9 @@ class InviteController extends RestController
 
         return $invite;
     }
-    
-    
-    
-        public function actionOptions()
+
+
+    public function actionOptions()
     {
         \Yii::$app->response->setStatusCode(200);
     }
