@@ -65,16 +65,16 @@ class FeedbackController extends RestController
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($patientid)
     {
-        return Feedback::find()->byPatientId(\Yii::$app->user->identity->patient->id)->all();
+        return Feedback::find()->byPatientId($patientid)->all();
     }
 
-    public function actionView($id)
+    public function actionView($patientid, $id)
     {
         $model = Feedback::find()
             ->byId($id)
-            ->byPatientId(\Yii::$app->user->identity->patient->id)
+            ->byPatientId($patientid)
             ->one();
 
         if ($model == null) {
@@ -101,7 +101,7 @@ class FeedbackController extends RestController
         }
     }
 
-    public function actionDelete($id)
+    public function actionDelete($patientid, $id)
     {
         $model = Feedback::find()
             ->byId($id)

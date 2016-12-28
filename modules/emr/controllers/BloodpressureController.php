@@ -96,9 +96,9 @@ class BloodpressureController extends RestController
     }
 
 
-    public function actionView($id)
+    public function actionView($patientid, $id)
     {
-        $model = BloodPressure::find()->byId($id)->byPatientId(\Yii::$app->user->identity->patient->id)->one();
+        $model = BloodPressure::find()->byId($id)->byPatientId($patientid)->one();
 
         if ($model == null) {
             throw new NotFoundHttpException();
@@ -107,7 +107,7 @@ class BloodpressureController extends RestController
         return $model;
     }
 
-    public function actionDelete($id)
+    public function actionDelete($patientid, $id)
     {
         $model = BloodPressure::find()
             ->byId($id)
