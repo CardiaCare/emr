@@ -23,7 +23,7 @@ use yii\web\ServerErrorHttpException;
  *
  * @author Yulia Zavyalova
  */
-class BloodPressureController extends RestController
+class BloodpressureController extends RestController
 {
     //put your code here
 
