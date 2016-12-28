@@ -52,7 +52,7 @@ class BloodPressureController extends RestController
                         'allow' => true,
                         'actions' => ['create'],
                         'roles' => [User::ROLE_PATIENT],
-                    ]  
+                    ]
                 ],
             ],
             'verbFilter' => [
@@ -112,8 +112,8 @@ class BloodPressureController extends RestController
 
         \Yii::$app->response->setStatusCode(204);
     }
-    
-        public function actionOptions()
+
+    public function actionOptions()
     {
         \Yii::$app->response->setStatusCode(200);
     }

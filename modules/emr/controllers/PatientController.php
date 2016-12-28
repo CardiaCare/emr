@@ -6,11 +6,11 @@ use app\controllers\RestController;
 use app\modules\emr\models\Patient;
 use app\modules\user\models\User;
 use yii\filters\AccessControl;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
-use yii\filters\auth\CompositeAuth;
-use yii\filters\auth\HttpBasicAuth;
 
 
 /**
@@ -29,18 +29,18 @@ class PatientController extends RestController
     {
         return [
             'authenticator' => [
-                'class'       => CompositeAuth::class,
+                'class' => CompositeAuth::class,
                 'only' => ['update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
             ],
             'verbFilter' => [
-                'class'   => VerbFilter::class,
+                'class' => VerbFilter::class,
                 'actions' => [
-                    'index'  => ['get'],
+                    'index' => ['get'],
                     'update' => ['put'],
-                    'view'   => ['get'],
+                    'view' => ['get'],
                     'options' => ['options'],
                     'delete' => ['delete'],
                 ],
@@ -257,7 +257,7 @@ class PatientController extends RestController
 
         \Yii::$app->response->setStatusCode(204);
     }
-    
+
     public function actionOptions()
     {
         \Yii::$app->response->setStatusCode(200);
