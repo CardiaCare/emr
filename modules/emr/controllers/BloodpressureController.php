@@ -52,6 +52,11 @@ class BloodpressureController extends RestController
                         'allow' => true,
                         'actions' => ['create'],
                         'roles' => [User::ROLE_PATIENT],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update', 'index', 'view', 'delete'],
+                        'roles' => ['@'],
                     ]
                 ],
             ],
