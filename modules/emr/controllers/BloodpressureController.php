@@ -90,9 +90,9 @@ class BloodpressureController extends RestController
         }
     }
 
-    public function actionIndex()
+    public function actionIndex($patientid)
     {
-        return BloodPressure::find()->byPatientId(\Yii::$app->user->identity->patient->id)->all();
+        return BloodPressure::find()->byPatientId($patientid)->all();
     }
 
 

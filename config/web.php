@@ -113,12 +113,12 @@ $config = [
                 'DELETE feedback/<id:\d+>' => 'survey/feedback/delete',
 
                 // blood pressure methods
-                'POST bloodpressure' => 'emr/bloodpressure/create',
-                'OPTIONS bloodpressure' => 'emr/bloodpressure/options',
-                'GET bloodpressure' => 'emr/bloodpressure/index',
-                'GET bloodpressure/<id:\d+>' => 'emr/bloodpressure/view',
-                'OPTIONS bloodpressure/<id:\d+>' => 'emr/bloodpressure/options',
-                'DELETE bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete'
+                'POST patients/<patientid:\d+>/bloodpressure' => 'emr/bloodpressure/create',
+                'OPTIONS patients/<patientid:\d+>/bloodpressure' => 'emr/bloodpressure/options',
+                'GET patients/<patientid:\d+>/bloodpressure' => 'emr/bloodpressure/index',
+                'GET patients/<patientid:\d+>/bloodpressure/<id:\d+>' => 'emr/bloodpressure/view',
+                'OPTIONS patients/<patientid:\d+>/bloodpressure/<id:\d+>' => 'emr/bloodpressure/options',
+                'DELETE patients/<patientid:\d+>/bloodpressure/bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete'
             ],
         ],
     ],
