@@ -5,7 +5,10 @@ namespace app\modules\user\controllers;
 use app\controllers\RestController;
 use app\modules\user\models\User;
 use yii\filters\AccessControl;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 
 /**
@@ -21,6 +24,13 @@ class UserController extends RestController
     public function behaviors()
     {
         return [
+            'authenticator' => [
+                'class' => CompositeAuth::class,
+                'only' => ['view'],
+                'authMethods' => [
+                    HttpBasicAuth::class,
+                ],
+            ],
             'accessControl' => [
                 'class' => AccessControl::class,
                 'rules' => [
@@ -28,6 +38,11 @@ class UserController extends RestController
                         'allow' => true,
                         'actions' => ['options'],
                         'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
@@ -39,7 +54,8 @@ class UserController extends RestController
                 'class' => VerbFilter::class,
                 'actions' => [
                     'create' => ['post'],
-                    'options' => ['options']
+                    'options' => ['options'],
+                    'view' => ['get'],
                 ],
             ],
         ];
@@ -84,6 +100,17 @@ class UserController extends RestController
         } else {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
+    }
+
+    public function actionView($id)
+    {
+        $model = User::find()->byId($id)->one();
+
+        if ($model == null) {
+            throw new NotFoundHttpException();
+        }
+
+        return $model;
     }
 
     public function actionOptions()
