@@ -209,6 +209,24 @@ class InviteController extends RestController
         return $invite;
     }
 
+    public function actionDelete(int $id)
+    {
+        $invite = UserInvite::find()->byId($id)->byReferrerId(\Yii::$app->user->id)->one();
+
+        if ($invite === null) {
+            throw new NotFoundHttpException('Invite is not found');
+        }
+
+        if ($invite->registered !== false) {
+            \Yii::$app->response->setStatusCode(400);
+            throw new \InvalidArgumentException('Invite is already registered');
+        }
+        UserInvite::deleteAll([
+            'id' => $invite->id
+        ]);
+
+        return \Yii::$app->response->setStatusCode(204);
+    }
 
     public function actionOptions()
     {

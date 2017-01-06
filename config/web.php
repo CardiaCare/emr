@@ -58,7 +58,8 @@ $config = [
                 'OPTIONS invites' => 'user/invite/options',
                 'GET invites' => 'user/invite/index',
                 'GET invites/<id:\d+>' => 'user/invite/view',
-                
+                'DELETE invites/<id:\d+>' => 'user/invite/delete',
+
                 'POST recovery' => 'user/recovery/request',
                 'OPTIONS recovery' => 'user/recovery/options',
                 'PUT user/password' => 'user/recovery/recover',
@@ -69,34 +70,34 @@ $config = [
                 'GET tests' => 'emr/test/index',
                 'GET tests/<id:\d+>' => 'emr/test/index',
                 'OPTIONS tests/<id:\d+>' => 'emr/test/options',
-                
+
                 'POST biosignals' => 'emr/biosignal/create',
                 'OPTIONS biosignals' => 'emr/biosignal/options',
-                
+
                 'GET patients' => 'emr/patient/index',
                 'OPTIONS patients' => 'emr/patient/options',
                 'GET patients/<id:\d+>' => 'emr/patient/view',
                 'PUT patients/<id:\d+>' => 'emr/patient/update',
                 'DELETE patients/<id:\d+>' => 'emr/patient/delete',
                 'OPTIONS patients/<id:\d+>' => 'emr/patient/options',
-                
+
                 // organization module
                 'GET organizations' => 'organization/organization/view',
                 'PUT organizations' => 'organization/organization/update',
                 'OPTIONS organizations' => 'emr/organizations/options',
-                
-                
+
+
                 // archive module
                 'GET archive/organizations' => 'archive/organization/index',
                 'OPTIONS  archive/organizations' => 'archive/organizations/options',
                 'GET archive/organizations/<id:\d+>/revision/<revision:\d+>' => 'archive/organization/view',
                 'OPTIONS  archive/organizations/<id:\d+>/revision/<revision:\d+>' => 'archive/organizations/options',
-                
+
                 'GET archive/patients' => 'archive/patient/index',
                 'OPTIONS  archive/patients' => 'archive/patients/options',
                 'GET archive/patients/<id:\d+>/revision/<revision:\d+>' => 'archive/patient/view',
                 'OPTIONS  archive/patients/<id:\d+>/revision/<revision:\d+>' => 'archive/patients/options',
-                
+
                 // survey methods
 
                 'POST survey' => 'survey/questionnaire/create',
