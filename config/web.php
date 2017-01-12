@@ -48,6 +48,7 @@ $config = [
                 'POST users' => 'user/user/create',
                 'OPTIONS users' => 'user/user/options',
                 'GET users/<id:\d+>' => 'user/user/view',
+                'OPTIONS users/<id:\d+>' => 'user/user/options',
 
                 'POST tokens' => 'user/token/create',
                 'DELETE tokens' => 'user/token/delete',
