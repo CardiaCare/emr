@@ -10,6 +10,7 @@ use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use yii\web\ConflictHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 
@@ -219,8 +220,7 @@ class InviteController extends RestController
         }
         $invite = $invite->toArray();
         if ($invite['registered'] !== false) {
-            \Yii::$app->response->setStatusCode(400);
-            throw new \InvalidArgumentException('Invite is already registered');
+            throw new ConflictHttpException('Invite is already registered');
         }
         UserInvite::deleteAll([
             'id' => $invite['id']
