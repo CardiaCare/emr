@@ -217,8 +217,8 @@ class InviteController extends RestController
         if ($invite === null) {
             throw new NotFoundHttpException('Invite is not found');
         }
-
-        if ($invite->registered !== false) {
+        $invite = $invite->toArray();
+        if ($invite['registered'] !== false) {
             \Yii::$app->response->setStatusCode(400);
             throw new \InvalidArgumentException('Invite is already registered');
         }
