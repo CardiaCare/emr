@@ -59,6 +59,7 @@ $config = [
                 'GET invites' => 'user/invite/index',
                 'GET invites/<id:\d+>' => 'user/invite/view',
                 'DELETE invites/<id:\d+>' => 'user/invite/delete',
+                'OPTIONS invites/<id:\d+>' => 'user/invite/options',
 
                 'POST recovery' => 'user/recovery/request',
                 'OPTIONS recovery' => 'user/recovery/options',
