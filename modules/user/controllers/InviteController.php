@@ -223,7 +223,7 @@ class InviteController extends RestController
             throw new \InvalidArgumentException('Invite is already registered');
         }
         UserInvite::deleteAll([
-            'id' => $invite->id
+            'id' => $invite['id']
         ]);
 
         return \Yii::$app->response->setStatusCode(204);
