@@ -11,6 +11,7 @@
         "rmrevin/yii2-rbac-command": "^1.4"
     },
     "require-dev": {
+        "yiisoft/yii2-apidoc": "~2.1.0",
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-faker": "*",
         "yiisoft/yii2-gii": "*"

@@ -14,9 +14,9 @@ use yii\web\ServerErrorHttpException;
 
 
 /**
- * Controller for managing patients.
+ * Controller for managing doctors.
  *
- * @author Yuiliya Zavyalova      <yzavyalo@cs.karelia.ru>
+ * @author Yuliya Zavyalova      <yzavyalo@cs.karelia.ru>
  */
 class DoctorController extends RestController
 {
@@ -62,7 +62,7 @@ class DoctorController extends RestController
     }
 
     /**
-     * @api {put} /doctors/{id} Update patient
+     * @api {put} /doctors/{id} Update doctor
      * @apiVersion 1.0.0
      * @apiGroup Doctor
      * @apiName  UpdateDoctor
@@ -121,7 +121,7 @@ class DoctorController extends RestController
     }
 
     /**
-     * @api {get} /doctors/{id} View all patients
+     * @api {get} /doctors View all doctors
      * @apiVersion 1.0.0
      * @apiGroup Doctor
      * @apiName  ViewAllDoctors
@@ -166,11 +166,12 @@ class DoctorController extends RestController
     }
 
     /**
-     * @api {get} /doctors/{id} View patient's information
+     * @api {get} /doctors/{id} View doctor's information
      * @apiVersion 1.0.0
      * @apiGroup Doctor
      * @apiName  ViewDoctor
      * @apiDescription Shows patient information
+     * @apiParam {Integer} [id] Doctor's id
      * @apiPermission Doctor
      * @apiSuccessExample {json} Success-Response:
      *      HTTP/1.1 200 OK

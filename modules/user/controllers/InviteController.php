@@ -210,6 +210,25 @@ class InviteController extends RestController
 
         return $invite;
     }
+    
+    
+    /**
+     * @api {delete} /invites/{id} Delete invite 
+     * @apiVersion 1.0.0
+     * @apiGroup Invite
+     * @apiName  DeleteInvite
+     * @apiDescription Delete invite without registration
+     * @apiPermission Doctor|Chief
+     * @apiParam {Integer} id Invite's id
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 409 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"Invite is already registered",
+     *          "code":0,
+     *          "status":409
+     *      }
+     */
 
     public function actionDelete(int $id)
     {

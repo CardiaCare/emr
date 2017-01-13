@@ -72,6 +72,34 @@ class BloodpressureController extends RestController
             ],
         ];
     }
+    
+    /**
+     * @api {post} /patients/[patientid]/bloodpressure Upload bloodpressure
+     * @apiVersion 1.0.0
+     * @apiGroup Bloodpressure
+     * @apiName  CreateBloodpressure
+     * @apiDescription Uploads bloodpressure
+     * @apiParam {Integer} [patientid] Patient's id
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *          "id":1,
+     *          "patient_id":2,
+     *          "systolic":120,
+     *          "diastolic":80,
+     *          "created_at":2017-01-01
+     *     }
+     * @apiPermission Patient
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 201 Created
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     */
 
     public function actionCreate()
     {
@@ -89,13 +117,111 @@ class BloodpressureController extends RestController
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
     }
+    
+    /**
+     * @api {get} /patients/[patientid]/bloodpressure Get bloodpressure
+     * @apiVersion 1.0.0
+     * @apiGroup Bloodpressure
+     * @apiName  GetBloodpressure
+     * @apiDescription Shows uploaded bloodpressures by curent patients
+     * @apiPermission Doctor
+     * @apiParam {Integer} [patientid] Patient's id
+     * @apiSuccessExample {json} All patients:
+     *      HTTP/1.1 200 OK
+     *      [
+     *          {
+     *              "id":1,
+     *              "patient_id":2,
+     *              "systolic":120,
+     *              "diastolic":80,
+     *              "created_at":2017-01-01
+     *          },
+     *          {
+     *              "id":2,
+     *              "patient_id":4,
+     *              "systolic":110,
+     *              "diastolic":70,
+     *              "created_at":2017-01-01
+     *          }
+     *      ]
+     * @apiSuccessExample {json} Single patient:
+     *      HTTP/1.1 200 OK
+     *      [
+     *          {
+     *              "id":1,
+     *              "patient_id":2,
+     *              "systolic":120,
+     *              "diastolic":80,
+     *              "created_at":2017-01-01
+     *          }
+     *      ]
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     */
 
     public function actionIndex($patientid)
     {
         return BloodPressure::find()->byPatientId($patientid)->all();
     }
 
-
+    /**
+     * @api {get} /patients/{patientid}/bloodpressure/{id} View bloodpressure's information
+     * @apiVersion 1.0.0
+     * @apiGroup Bloodpressure
+     * @apiName  ViewBloodpressure
+     * @apiDescription Shows bloodpressure information
+     * @apiPermission Doctor
+     * @apiParam {Integer} [patientid] Patient's id
+     * @apiParam {Integer} [id] Bloodpressure's id
+     * @apiSuccessExample {json} Success-Response:
+     *      HTTP/1.1 200 OK
+     *     {
+     *          "id":1,
+     *          "patient_id":2,
+     *          "systolic":120,
+     *          "diastolic":80,
+     *          "created_at":2017-01-01
+     *     }
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
+     */
+    
     public function actionView($patientid, $id)
     {
         $model = BloodPressure::find()->byId($id)->byPatientId($patientid)->one();
@@ -106,6 +232,13 @@ class BloodpressureController extends RestController
 
         return $model;
     }
+    
+    
+    /**
+     * Detach bloodpressure
+     * @param $id
+     * @throws \yii\db\Exception
+     */
 
     public function actionDelete($patientid, $id)
     {

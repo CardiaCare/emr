@@ -101,6 +101,46 @@ class UserController extends RestController
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
     }
+    
+        /**
+     * @api {get} /users/{id} View User's information
+     * @apiVersion 1.0.0
+     * @apiGroup User
+     * @apiName  ViewUser
+     * @apiDescription Shows User information
+     * @apiParam {Integer} [id] User's id
+     * @apiSuccessExample {json} Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "id": 1,
+     *          "email": "Petr@mail.com",
+     *          "inviteCode": "8264855,
+     *      }
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
+     */
 
     public function actionView($id)
     {
