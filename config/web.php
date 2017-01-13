@@ -82,6 +82,14 @@ $config = [
                 'PUT patients/<id:\d+>' => 'emr/patient/update',
                 'DELETE patients/<id:\d+>' => 'emr/patient/delete',
                 'OPTIONS patients/<id:\d+>' => 'emr/patient/options',
+                
+                
+                'GET doctors' => 'emr/doctor/index',
+                'OPTIONS doctors' => 'emr/doctor/options',
+                'GET doctors/<id:\d+>' => 'emr/doctor/view',
+                'PUT doctors/<id:\d+>' => 'emr/doctor/update',
+                'DELETE doctors/<id:\d+>' => 'emr/doctor/delete',
+                'OPTIONS doctors/<id:\d+>' => 'emr/doctor/options',
 
                 // organization module
                 'GET organizations' => 'organization/organization/view',
