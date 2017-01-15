@@ -2,9 +2,9 @@
 
 namespace app\modules\user\models;
 
+use app\modules\emr\models\Patient;
 use app\modules\organization\models\Doctor;
 use app\modules\organization\models\Organization;
-use app\modules\emr\models\Patient;
 use app\modules\user\query\UserQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -14,22 +14,22 @@ use yii\web\IdentityInterface;
  * This is the model class for table "user".
  *
  * @property integer $id
- * @property string  $email
- * @property string  $password_hash
- * @property string  $created_at
- * @property string  $recovery_code
- * @property string  $authToken
+ * @property string $email
+ * @property string $password_hash
+ * @property string $created_at
+ * @property string $recovery_code
+ * @property string $authToken
  *
- * @property Organization   $organization
- * @property Patient        $patient
- * @property Doctor         $doctor
- * @property UserInvite[]   $invites
+ * @property Organization $organization
+ * @property Patient $patient
+ * @property Doctor $doctor
+ * @property UserInvite[] $invites
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const ROLE_PATIENT = 'patient';
-    const ROLE_DOCTOR  = 'doctor';
-    const ROLE_CHIEF   = 'chief';
+    const ROLE_DOCTOR = 'doctor';
+    const ROLE_CHIEF = 'chief';
 
     /**
      * @var string
@@ -75,6 +75,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return $fields;
     }
+
     /**
      * @inheritdoc
      */
@@ -85,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Validates password and rehashes it if needed.
-     * 
+     *
      * @param  string $password
      * @return bool
      */
@@ -97,7 +98,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'password_hash' => password_hash($password, PASSWORD_DEFAULT),
                 ]);
             }
-            
+
             return true;
         }
 
@@ -112,6 +113,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuthToken() : string
     {
         return (new UserToken(['user_id' => $this->id]))->create();
+    }
+
+    public function getUserInvite()
+    {
+        return $this->hasOne(UserInvite::className(), ['referral_id' => 'id']);
     }
 
     /**
@@ -157,7 +163,7 @@ class User extends ActiveRecord implements IdentityInterface
             if (!$this->validate()) {
                 return false;
             }
-            
+
             $this->save(false);
 
             \Yii::$app->mailer->compose('register', ['user' => $this])
@@ -180,12 +186,12 @@ class User extends ActiveRecord implements IdentityInterface
                     (new Patient())->link('user', $this);
                     \Yii::$app->db->createCommand()->insert('patient_to_doctor', [
                         'patient_id' => $this->patient->id,
-                        'doctor_id'  => $this->userInvite->referrer->doctor->id,
+                        'doctor_id' => $this->userInvite->referrer->doctor->id,
                     ])->execute();
                     break;
                 case self::ROLE_DOCTOR:
                     $doctor = new \app\modules\organization\models\Doctor([
-                        'user_id'         => $this->id,
+                        'user_id' => $this->id,
                         'organization_id' => $this->userInvite->referrer->organization->id,
                     ]);
                     $doctor->save(false);
@@ -193,15 +199,15 @@ class User extends ActiveRecord implements IdentityInterface
             }
 
             $transaction->commit();
-            
+
             return true;
         } catch (\Throwable $e) {
             \Yii::error($e);
-            
+
             $transaction->rollBack();
-            
+
             return false;
-        } 
+        }
     }
 
     /**
@@ -258,13 +264,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id'            => 'ID',
-            'email'         => 'Email',
+            'id' => 'ID',
+            'email' => 'Email',
             'password_hash' => 'Хэш пароля',
-            'created_at'    => 'Время создания',
+            'created_at' => 'Время создания',
             'recovery_code' => 'Код восстановления пароля',
-            'password'      => 'Пароль',
-            'inviteCode'    => 'Инвайт код',
+            'password' => 'Пароль',
+            'inviteCode' => 'Инвайт код',
         ];
     }
 
