@@ -70,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
         $fields = parent::fields();
 
         $fields['role'] = function (User $model) {
-            return $model->userInvite->role;
+            return $model->getUserInvite()->role;
         };
 
         return $fields;
@@ -117,7 +117,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getUserInvite()
     {
-        return $this->hasOne(UserInvite::className(), ['referral_id' => 'id']);
+        return UserInvite::find()->byReferralId($this->id)->one();
     }
 
     /**
