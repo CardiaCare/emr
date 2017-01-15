@@ -65,6 +65,19 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        $fields['role'] = function (User $model) {
+            return $model->userInvite->role;
+        };
+
+        return $fields;
+    }
+    /**
+     * @inheritdoc
+     */
     public function validateAuthKey($authKey) : bool
     {
         return false;
