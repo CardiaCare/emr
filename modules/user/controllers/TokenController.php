@@ -88,7 +88,10 @@ class TokenController extends RestController
 
         if ($model->authenticate()) {
             \Yii::$app->response->setStatusCode(201);
-            return $model->authToken;
+            return array(
+                'user' => $model->user,
+                'token' => $model->authToken
+            );
         } elseif ($model->hasErrors()) {
             \Yii::$app->response->setStatusCode(422);
             return ['errors' => $model->getErrors()];

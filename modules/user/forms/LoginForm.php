@@ -13,6 +13,10 @@ use yii\base\Model;
 class LoginForm extends Model
 {
     /**
+     * @var User
+     */
+    public $user;
+    /**
      * @var string
      */
     public $email;
@@ -37,7 +41,8 @@ class LoginForm extends Model
         }
         
         $user = User::find()->byEmail($this->email)->one();
-        
+
+        $this->user = $user;
         $this->authToken = (new UserToken(['user_id' => $user->id]))->create();
         
         return true;
