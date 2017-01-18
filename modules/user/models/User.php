@@ -75,10 +75,11 @@ class User extends ActiveRecord implements IdentityInterface
 
         $fields['person'] = function (User $model) {
             switch ($model->getUserInvite()->role) {
-                case 'doctor':
+                case self::ROLE_CHIEF:
+                case self::ROLE_DOCTOR:
                     return $model->getDoctor();
                     break;
-                case 'patient':
+                case self::ROLE_PATIENT:
                     return $model->getPatient();
                     break;
             }
