@@ -74,15 +74,7 @@ class User extends ActiveRecord implements IdentityInterface
         };
 
         $fields['person'] = function (User $model) {
-            switch ($model->getUserInvite()->role) {
-                case self::ROLE_CHIEF:
-                case self::ROLE_DOCTOR:
-                    return $model->getDoctor();
-                    break;
-                case self::ROLE_PATIENT:
-                    return $model->getPatient();
-                    break;
-            }
+            return $model->getPerson();
         };
 
         return $fields;
@@ -130,6 +122,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserInvite()
     {
         return UserInvite::find()->byReferralId($this->id)->one();
+    }
+
+    public function getPerson()
+    {
+        switch ($this->getUserInvite()->role) {
+            case self::ROLE_CHIEF:
+            case self::ROLE_DOCTOR:
+                return \app\modules\emr\models\Doctor::find()->byUserId($this->id)->one();
+                break;
+            case self::ROLE_PATIENT:
+                return Patient::find()->byUserId($this->id)->one();
+                break;
+        }
     }
 
     /**
