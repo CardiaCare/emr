@@ -42,6 +42,11 @@ class QuestionnaireController extends RestController
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => [User::ROLE_PATIENT],
+                    ] ,
+                    [
+                        'allow' => true,
                         'actions' => ['create', 'delete', 'index', 'view'],
                         'roles' => [User::ROLE_DOCTOR],
                     ]  
@@ -66,7 +71,7 @@ class QuestionnaireController extends RestController
      * @apiGroup Questionnair
      * @apiName  ViewAllQuestionnair
      * @apiDescription Shows all Questionnairies information
-     * @apiPermission Doctor
+     * @apiPermission Doctor|Patient
      * @apiSuccessExample {json} Success-Response:
      *      HTTP/1.1 200 OK
      *      [
@@ -115,7 +120,7 @@ class QuestionnaireController extends RestController
      * @apiName  ViewQuestionnair
      * @apiDescription Shows questionnaire information
      * @apiParam {Integer} [id] Serey's id
-     * @apiPermission Doctor
+     * @apiPermission Doctor|Patient
      * @apiSuccessExample {json} Success-Response:
      *      HTTP/1.1 200 OK
      *          {

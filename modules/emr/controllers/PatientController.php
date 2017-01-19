@@ -55,6 +55,11 @@ class PatientController extends RestController
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['update', 'index', 'view'],
+                        'roles' => [User::ROLE_PATIENT],
+                    ],
+                    [
+                        'allow' => true,
                         'actions' => ['update', 'index', 'view', 'delete'],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
@@ -69,7 +74,7 @@ class PatientController extends RestController
      * @apiGroup Patient
      * @apiName  UpdatePatient
      * @apiDescription Updates patient information
-     * @apiPermission Doctor
+     * @apiPermission Doctor|Patient
      * @apiParam {String} [snils]      Patient's snils
      * @apiParam {String} [inn]        Patient's inn
      * @apiParam {String} [name]       Patient's name
@@ -194,7 +199,7 @@ class PatientController extends RestController
      * @apiGroup Patient
      * @apiName  ViewPatient
      * @apiDescription Shows patient information
-     * @apiPermission Doctor
+     * @apiPermission Doctor|Patient
      * @apiSuccessExample {json} Success-Response:
      *      HTTP/1.1 200 OK
      *      {
