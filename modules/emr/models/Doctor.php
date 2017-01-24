@@ -2,21 +2,19 @@
 
 namespace app\modules\emr\models;
 
-use app\modules\organization\models\Organization;
-use app\modules\user\models\User;
 use app\modules\emr\query\DoctorQuery;
+use app\modules\user\models\User;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "doctor".
  *
- * @property integer      $id
- * @property integer      $user_id
- * @property integer      $organization_id
- * @property string       $name
- * @property string       $patronymic
- * @property string       $surname
-
+ * @property integer $id
+ * @property integer $user_id
+ * @property integer $organization_id
+ * @property string $name
+ * @property string $patronymic
+ * @property string $surname
  */
 class Doctor extends ActiveRecord
 {
@@ -27,7 +25,6 @@ class Doctor extends ActiveRecord
     public function rules() : array
     {
         return [
-            ['is_unknown', 'boolean'],
             ['name', 'string', 'max' => 255,
                 'tooLong' => 'Имя не может быть длиннее 255 символов'],
             ['patronymic', 'string', 'max' => 255,
