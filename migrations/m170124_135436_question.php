@@ -10,7 +10,7 @@ class m170124_135436_question extends Migration
             'id' => $this->primaryKey(),
             'description' => $this->text()->notNull(),
             'questionnaire_id' => $this->integer()->notNull(),
-            'uri' => $this->text()->notNull()->unique(),
+            'uri' => $this->string(255),
             'number' => $this->integer()->notNull(),
         ]);
 
@@ -29,15 +29,4 @@ class m170124_135436_question extends Migration
         $this->dropForeignKey('fk-question-que-id', 'question');
         $this->dropTable('question');
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }

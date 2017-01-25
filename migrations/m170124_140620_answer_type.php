@@ -9,7 +9,7 @@ class m170124_140620_answer_type extends Migration
         $this->createTable('answer_type', [
             'id' => $this->primaryKey(),
             'description' => $this->text()->notNull(),
-            'uri' => $this->text()->unique(),
+            'uri' => $this->string(255),
         ]);
     }
 
@@ -17,15 +17,4 @@ class m170124_140620_answer_type extends Migration
     {
         $this->dropTable('answer_type');
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }

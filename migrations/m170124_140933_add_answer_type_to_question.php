@@ -11,7 +11,7 @@ class m170124_140933_add_answer_type_to_question extends Migration
             'fk-question-answer-type-id',
             'question',
             'answer_type_id',
-            'asnwer_type',
+            'answer_type',
             'id',
             'CASCADE'
         );
@@ -22,15 +22,4 @@ class m170124_140933_add_answer_type_to_question extends Migration
         $this->dropForeignKey('fk-question-answer-type-id', 'question');
         $this->dropColumn('question', 'answer_type_id');
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }
