@@ -27,7 +27,7 @@ class Questionnaire extends ActiveRecord
     public function beforeSave($insert)
     {
         if ($this->isNewRecord) {
-            $this->doctor_id = \Yii::$app->user->identity->id;
+            $this->doctor_id = \Yii::$app->user->identity->doctor->id;
         }
 
         return parent::beforeSave($insert);
