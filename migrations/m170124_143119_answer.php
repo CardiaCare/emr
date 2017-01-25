@@ -10,6 +10,7 @@ class m170124_143119_answer extends Migration
             'id' => $this->primaryKey(),
             'answer_type_id' => $this->integer()->notNull(),
             'question_id' => $this->integer()->notNull(),
+            'parent_answer_item_id' => $this->integer(),
             'uri' => $this->string(255),
         ]);
 
@@ -36,7 +37,6 @@ class m170124_143119_answer extends Migration
             'answer_id' => $this->integer()->notNull(),
             'text' => $this->string(255)->notNull(),
             'score' => $this->integer()->notNull(),
-            'parent_answer_item_id' => $this->integer()->notNull(),
             'uri' => $this->string(255),
         ]);
 
@@ -50,8 +50,8 @@ class m170124_143119_answer extends Migration
         );
 
         $this->addForeignKey(
-            'fk-answer_item-answer_item',
-            'answer_item',
+            'fk-answer-parent_answer_item',
+            'answer',
             'parent_answer_item_id',
             'answer_item',
             'id',
@@ -61,11 +61,11 @@ class m170124_143119_answer extends Migration
 
     public function down()
     {
-        $this->dropForeignKey('fk-answer-answer_type', 'asnwer');
-        $this->dropForeignKey('fk-answer-question', 'answer');
-        $this->dropTable('answer');
         $this->dropForeignKey('fk-answer_item-answer', 'answer_item');
-        $this->dropForeignKey('fk-answer_item-answer_item', 'answer_item');
+        $this->dropForeignKey('fk-answer-parent_answer_item', 'answer');
+        $this->dropForeignKey('fk-answer-answer_type', 'answer');
+        $this->dropForeignKey('fk-answer-question', 'answer');
         $this->dropTable('answer_item');
+        $this->dropTable('answer');
     }
 }
