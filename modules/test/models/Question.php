@@ -2,11 +2,14 @@
 
 namespace app\modules\test\models;
 
+use app\modules\test\models\Factory\AnswerFactory;
 use app\modules\test\query\QuestionQuery;
 use yii\db\ActiveRecord;
 
 class Question extends ActiveRecord
 {
+    public $_answer;
+
     /**
      * @return array
      */
@@ -25,6 +28,20 @@ class Question extends ActiveRecord
     public function beforeSave($insert)
     {
         return parent::beforeSave($insert);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $answers = $this->getAnswerFactory()->createAnswerListFromData($this->_answer);
+
+        foreach ($answers as $answer) {
+            $this->link('answers', $answer);
+        }
     }
 
     /**
@@ -66,5 +83,13 @@ class Question extends ActiveRecord
     public static function tableData()
     {
         return 'question';
+    }
+
+    /**
+     * @return AnswerFactory
+     */
+    private function getAnswerFactory()
+    {
+        return new AnswerFactory();
     }
 }

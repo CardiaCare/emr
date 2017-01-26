@@ -3,11 +3,14 @@
 namespace app\modules\test\models;
 
 use app\modules\organization\models\Doctor;
+use app\modules\test\models\Factory\QuestionFactory;
 use app\modules\test\query\QuestionnaireQuery;
 use yii\db\ActiveRecord;
 
 class Questionnaire extends ActiveRecord
 {
+    public $_data;
+
     /**
      * @return array
      */
@@ -30,6 +33,20 @@ class Questionnaire extends ActiveRecord
         }
 
         return parent::beforeSave($insert);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $questions = $this->getQuestionFactory()->createQuestionListFromData($this->_data['questions']);
+
+        foreach ($questions as $question) {
+            $this->link('questions', $question);
+        }
     }
 
     /**
@@ -63,5 +80,13 @@ class Questionnaire extends ActiveRecord
     public static function tableData()
     {
         return 'questionnaire';
+    }
+
+    /**
+     * @return QuestionFactory
+     */
+    private function getQuestionFactory()
+    {
+        return new QuestionFactory();
     }
 }

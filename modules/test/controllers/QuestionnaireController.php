@@ -38,7 +38,9 @@ class QuestionnaireController extends RestController
 
     public function actionCreate()
     {
-        $model = new Questionnaire();
+        $model = new Questionnaire([
+            '_data' => \Yii::$app->getRequest()->getBodyParam('data'),
+        ]);
 
         $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
 

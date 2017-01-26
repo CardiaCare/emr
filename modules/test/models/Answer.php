@@ -40,6 +40,14 @@ class Answer extends ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParentAnswerItem()
+    {
+        return $this->hasOne(AnswerItem::className(), ['id' => 'parent_answer_item_id']);
+    }
+
+    /**
      * @inheritdoc
      * @return AnswerQuery
      */
