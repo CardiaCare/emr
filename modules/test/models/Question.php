@@ -37,11 +37,9 @@ class Question extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $answers = $this->getAnswerFactory()->createAnswerListFromData($this->_answer);
+        $answer = $this->getAnswerFactory()->createAnswerFromData($this->_answer);
 
-        foreach ($answers as $answer) {
-            $this->link('answers', $answer);
-        }
+        $answer->link('question', $this);
     }
 
     /**

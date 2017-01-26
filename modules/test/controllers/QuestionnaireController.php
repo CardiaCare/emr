@@ -3,6 +3,7 @@
 namespace app\modules\test\controllers;
 
 use app\controllers\RestController;
+use app\modules\test\models\Factory\QuestionFactory;
 use app\modules\test\models\Questionnaire;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
@@ -39,7 +40,7 @@ class QuestionnaireController extends RestController
     public function actionCreate()
     {
         $model = new Questionnaire([
-            '_data' => \Yii::$app->getRequest()->getBodyParam('data'),
+            '_data' => \Yii::$app->getRequest()->getBodyParam('questions'),
         ]);
 
         $model->load(\Yii::$app->getRequest()->getBodyParams(), '');

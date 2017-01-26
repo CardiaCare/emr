@@ -36,7 +36,7 @@ class Answer extends ActiveRecord
         $answerItems = $this->getAnswerItemFactory()->createAnswerItemListFromData($this->_items);
 
         foreach ($answerItems as $answerItem) {
-            $this->link('items', $answerItem);
+            $answerItem->link('answer', $this);
         }
     }
 

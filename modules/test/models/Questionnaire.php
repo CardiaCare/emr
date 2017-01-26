@@ -28,11 +28,13 @@ class Questionnaire extends ActiveRecord
      */
     public function beforeSave($insert)
     {
-        if ($this->isNewRecord) {
+        if (parent::beforeSave($insert)) {
             $this->doctor_id = \Yii::$app->user->identity->id;
+
+            return true;
         }
 
-        return parent::beforeSave($insert);
+        return false;
     }
 
     /**
@@ -44,8 +46,9 @@ class Questionnaire extends ActiveRecord
 
         $questions = $this->getQuestionFactory()->createQuestionListFromData($this->_data['questions']);
 
-        foreach ($questions as $question) {
-            $this->link('questions', $question);
+        foreach ($questions as $key => $question) {
+            $question->number = $key;
+            $question->link('questionnaire', $this);
         }
     }
 

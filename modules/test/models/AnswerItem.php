@@ -41,7 +41,7 @@ class AnswerItem extends ActiveRecord
         $answers = $this->getAnswerFactory()->createAnswerListFromData($this->_subAnswers);
 
         foreach ($answers as $answer) {
-            $this->link('subAnswers', $answer);
+            $answer->link('parentAnswerItem', $this);
         }
     }
 
