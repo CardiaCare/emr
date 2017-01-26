@@ -13,6 +13,10 @@ class AnswerItemFactory
         'uri'
     ];
 
+    /**
+     * @param array $data
+     * @return AnswerItem[]
+     */
     public function createAnswerItemListFromData(array $data)
     {
         $answerItems = [];
@@ -25,23 +29,31 @@ class AnswerItemFactory
         return $answerItems;
     }
 
+    /**
+     * @param array $data
+     * @return AnswerItem
+     */
     public function createAnswerItemFromData(array $data)
     {
         if (!$this->validateData($data)) {
-            throw new \InvalidArgumentException('Some of these properties are not set: '.implode($this->requiredKeys).'.');
+            throw new \InvalidArgumentException('Some of these properties are not set: '.implode(', ', $this->requiredKeys).'.');
         }
 
         $answerItem = new AnswerItem(['_subAnswers' => $data['subAnswers']]);
-        $answerItem->score = $data['score'];
-        $answerItem->text = $data['text'];
+        $answerItem->score = $data['itemScore'];
+        $answerItem->text = $data['itemText'];
         $answerItem->uri = $data['uri'];
 
         return $answerItem;
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     public function validateData(array $data)
     {
-        if(count(array_intersect_key(array_flip($this->requiredKeys), $data)) !== count($this->requiredKeys)) {
+        if(count(array_intersect_key(array_flip($this->requiredKeys), $data)) === count($this->requiredKeys)) {
             return true;
         }
 
