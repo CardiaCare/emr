@@ -54,6 +54,14 @@ class AnswerItem extends ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnswer()
+    {
+        return $this->hasOne(Answer::className(), ['id' => 'answer_id']);
+    }
+
+    /**
      * @inheritdoc
      * @return AnswerItemQuery
      */
