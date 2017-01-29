@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
 
 class Questionnaire extends ActiveRecord
 {
-    public $_data;
+    public $_questions;
 
     /**
      * @return array
@@ -44,7 +44,7 @@ class Questionnaire extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $questions = $this->getQuestionFactory()->createQuestionListFromData($this->_data['questions']);
+        $questions = $this->getQuestionFactory()->createQuestionListFromData($this->_questions);
 
         foreach ($questions as $key => $question) {
             $question->number = $key;
@@ -65,7 +65,7 @@ class Questionnaire extends ActiveRecord
      */
     public function getQuestions()
     {
-        return $this->hasMany(Question::className(), ['questionnaire_id', 'id']);
+        return $this->hasMany(Question::className(), ['questionnaire_id' => 'id']);
     }
 
     /**
