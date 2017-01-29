@@ -53,14 +53,6 @@ class Question extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnswerType()
-    {
-        return $this->hasOne(AnswerType::className(), ['id' => 'answer_type_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getAnswers()
     {
         return $this->hasMany(Answer::className(), ['question_id' => 'id']);

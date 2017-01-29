@@ -24,13 +24,4 @@ class QuestionQuery extends ActiveQuery
         return $this
             ->andWhere(['questionnaire_id' => $questionnaireId]);
     }
-
-    /**
-     * @param int $answerTypeId
-     * @return QuestionQuery
-     */
-    public function byAnswerTypeId(int $answerTypeId) : QuestionQuery
-    {
-        return $this->andWhere(['answer_type_id' => $answerTypeId]);
-    }
 }

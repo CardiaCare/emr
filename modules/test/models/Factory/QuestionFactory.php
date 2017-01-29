@@ -2,7 +2,6 @@
 
 namespace app\modules\test\models\Factory;
 
-use app\modules\test\models\AnswerType;
 use app\modules\test\models\Question;
 
 class QuestionFactory
@@ -29,6 +28,10 @@ class QuestionFactory
         return $questions;
     }
 
+    /**
+     * @param array $data
+     * @return Question
+     */
     public function createQuestionFromData(array $data)
     {
         if (!$this->validateData($data)) {
@@ -38,15 +41,17 @@ class QuestionFactory
         $question = new Question(['_answer' => $data['answer']]);
         $question->description = $data['description'];
         $question->uri = $data['uri'];
-        $question->answer_type_id = AnswerType::find()
-            ->where(['description' => $data['answer']['type']])->one()->id;
 
         return $question;
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     public function validateData(array $data)
     {
-        if(count(array_intersect_key(array_flip($this->requiredKeys), $data)) === count($this->requiredKeys) && array_key_exists('type', $data['answer'])) {
+        if(count(array_intersect_key(array_flip($this->requiredKeys), $data)) === count($this->requiredKeys)) {
             return true;
         }
 
