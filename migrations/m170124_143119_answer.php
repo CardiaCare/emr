@@ -9,7 +9,7 @@ class m170124_143119_answer extends Migration
         $this->createTable('answer', [
             'id' => $this->primaryKey(),
             'answer_type_id' => $this->integer()->notNull(),
-            'question_id' => $this->integer()->notNull(),
+            'question_id' => $this->integer(),
             'parent_answer_item_id' => $this->integer(),
             'uri' => $this->string(255),
         ]);
