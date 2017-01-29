@@ -40,7 +40,7 @@ class AnswerFactory
         }
 
         $answer = new Answer(['_items' => $data['items']]);
-        $answer->load($data);
+        $answer->uri = $data['uri'];
         $answer->answer_type_id = AnswerType::find()
             ->where(['description' => $data['type']])->one()->id;
 
