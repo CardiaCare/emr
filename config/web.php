@@ -136,7 +136,9 @@ $config = [
 
                 // test module
                 'POST questionnaire' => 'test/questionnaire/create',
-                'GET questionnaire' => 'test/questionnaire/view',
+                'GET questionnaire/<id:\d+>' => 'test/questionnaire/view',
+                'GET questionnaire' => 'test/questionnaire/index',
+                'DELETE questionnaire/<id:\d+>' => 'test/questionnaire/delete',
             ],
         ],
     ],
