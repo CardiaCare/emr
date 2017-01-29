@@ -29,6 +29,11 @@ class QuestionnaireController extends RestController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
+                        'allow' => false,
+                        'actions' => ['index', 'view', 'create', 'delete'],
+                        'roles' => ['?'],
+                    ],
+                    [
                         'allow' => true,
                         'actions' => ['index', 'view'],
                         'roles' => [User::ROLE_PATIENT],
@@ -66,7 +71,7 @@ class QuestionnaireController extends RestController
      *              "id": 2,
      *              "doctor_id": "2",
      *              "version": "1.0.1",
-     *              "created_at": "31.12.16",
+     *              "created_at": "2016-12-31",
      *              "description": "Description",
      *              "lang": "ru",
      *          },
@@ -74,7 +79,7 @@ class QuestionnaireController extends RestController
      *              "id": 2,
      *              "doctor_id": "2",
      *              "version": "1.0.1",
-     *              "created_at": "31.12.16",
+     *              "created_at": "2016-12-31",
      *              "description": "Description",
      *              "lang": "ru",
      *          }
@@ -117,7 +122,7 @@ class QuestionnaireController extends RestController
      *              "id": 2,
      *              "doctor_id": "2",
      *              "version": "1.0.1",
-     *              "created_at": "31.12.16",
+     *              "created_at": "2016-12-31",
      *              "description": "Description",
      *              "lang": "ru",
      *              "questions": []
@@ -168,10 +173,7 @@ class QuestionnaireController extends RestController
      * @apiDescription Uploads questionnaire
      * @apiParamExample {json} Request-Example:
      *          {
-     *              "id": 2,
-     *              "doctor_id": "2",
      *              "version": "1.0.1",
-     *              "created_at": "31.12.16",
      *              "description": "Description",
      *              "lang": "ru",
      *              "questions": []
@@ -179,6 +181,14 @@ class QuestionnaireController extends RestController
      * @apiPermission Doctor
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 201 Created
+     *          {
+     *              "id": 2,
+     *              "doctor_id": "2",
+     *              "version": "1.0.1",
+     *              "created_at": "2016-12-31",
+     *              "description": "Description",
+     *              "lang": "ru"
+     *          }
      * @apiErrorExample {json} Unauthorized
      *      HTTP/1.1 401 Unauthorized
      *      {
@@ -196,14 +206,26 @@ class QuestionnaireController extends RestController
 
         $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
-        if ($model->save()) {
-            \Yii::$app->response->setStatusCode(201);
-            return $model;
-        } elseif ($model->hasErrors()) {
-            \Yii::$app->response->setStatusCode(422);
-            return ['errors' => $model->getErrors()];
-        } else {
-            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+
+        $transaction = Questionnaire::getDb()->beginTransaction();
+
+        try {
+            if ($model->save()) {
+                \Yii::$app->response->setStatusCode(201);
+                $transaction->commit();
+                return $model;
+            } elseif ($model->hasErrors()) {
+                \Yii::$app->response->setStatusCode(422);
+                return ['errors' => $model->getErrors()];
+            } else {
+                throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+            }
+        } catch(\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        } catch(\Throwable $e) {
+            $transaction->rollBack();
+            throw $e;
         }
     }
 
