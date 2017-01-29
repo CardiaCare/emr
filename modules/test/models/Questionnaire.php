@@ -6,6 +6,7 @@ use app\modules\organization\models\Doctor;
 use app\modules\test\models\Factory\QuestionFactory;
 use app\modules\test\query\QuestionnaireQuery;
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 class Questionnaire extends ActiveRecord
 {
@@ -18,9 +19,27 @@ class Questionnaire extends ActiveRecord
     {
         return array(
             ['data', 'string'],
-            [['data', 'version'], 'required', 'message' => '{attribute} не может быть пустым'],
+            ['lang', 'string'],
+            [['data', 'version', 'lang'], 'required', 'message' => '{attribute} не может быть пустым'],
             ['version', 'string'],
+            ['description', 'string'],
+            ['created_at', 'date'],
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => false,
+                'value' => date('Y-m-d'),
+            ],
+        ];
     }
 
     /**
