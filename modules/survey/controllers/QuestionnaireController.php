@@ -159,7 +159,6 @@ class QuestionnaireController extends RestController
     {
         $model = Questionnaire::find()
             ->byId($id)
-            ->byDoctorId(\Yii::$app->user->identity->doctor->id)
             ->one();
 
         if ($model == null) {

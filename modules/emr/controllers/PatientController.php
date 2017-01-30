@@ -240,7 +240,7 @@ class PatientController extends RestController
      */
     public function actionView($id)
     {
-        $model = Patient::find()->byId($id)->byDoctorId(\Yii::$app->user->identity->doctor->id)->one();
+        $model = Patient::find()->byId($id)->one();
 
         if ($model == null) {
             throw new NotFoundHttpException();
