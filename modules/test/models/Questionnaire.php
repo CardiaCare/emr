@@ -18,9 +18,9 @@ class Questionnaire extends ActiveRecord
     public function rules() : array
     {
         return array(
-            ['data', 'string'],
+            ['emergency', 'boolean'],
             ['lang', 'string'],
-            [['data', 'version', 'lang'], 'required', 'message' => '{attribute} не может быть пустым'],
+            [['version', 'lang', 'emergency'], 'required', 'message' => '{attribute} не может быть пустым'],
             ['version', 'string'],
             ['description', 'string'],
             ['created_at', 'date'],
