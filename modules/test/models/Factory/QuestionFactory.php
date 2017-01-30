@@ -7,7 +7,7 @@ use app\modules\test\models\Question;
 class QuestionFactory
 {
     private $requiredKeys = [
-        'answer',
+        'answers',
         'description',
         'uri'
     ];
@@ -35,10 +35,10 @@ class QuestionFactory
     public function createQuestionFromData(array $data)
     {
         if (!$this->validateData($data)) {
-            throw new \InvalidArgumentException('Some of these properties are not set: '.implode(', ', $this->requiredKeys).'.');
+            throw new \InvalidArgumentException('Question: Some of these properties are not set: '.implode(', ', $this->requiredKeys).'.');
         }
 
-        $question = new Question(['_answer' => $data['answer']]);
+        $question = new Question(['_answers' => $data['answers']]);
         $question->description = $data['description'];
         $question->uri = $data['uri'];
 

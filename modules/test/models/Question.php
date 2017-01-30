@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
 
 class Question extends ActiveRecord
 {
-    public $_answer;
+    public $_answers;
 
     /**
      * @return array
@@ -37,9 +37,11 @@ class Question extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $answer = $this->getAnswerFactory()->createAnswerFromData($this->_answer);
+        $answers = $this->getAnswerFactory()->createAnswerListFromData($this->_answers);
 
-        $answer->link('question', $this);
+        foreach ($answers as $answer) {
+            $answer->link('question', $this);
+        }
     }
 
     /**

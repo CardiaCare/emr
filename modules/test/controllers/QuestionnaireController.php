@@ -29,11 +29,6 @@ class QuestionnaireController extends RestController
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'allow' => false,
-                        'actions' => ['index', 'view', 'create', 'delete'],
-                        'roles' => ['?'],
-                    ],
-                    [
                         'allow' => true,
                         'actions' => ['index', 'view'],
                         'roles' => [User::ROLE_PATIENT],

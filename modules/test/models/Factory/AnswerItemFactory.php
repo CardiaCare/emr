@@ -36,7 +36,7 @@ class AnswerItemFactory
     public function createAnswerItemFromData(array $data)
     {
         if (!$this->validateData($data)) {
-            throw new \InvalidArgumentException('Some of these properties are not set: '.implode(', ', $this->requiredKeys).'.');
+            throw new \InvalidArgumentException('AnswerItem: Some of these properties are not set: '.implode(', ', $this->requiredKeys).'.');
         }
 
         $answerItem = new AnswerItem(['_subAnswers' => $data['subAnswers']]);

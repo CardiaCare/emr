@@ -36,7 +36,7 @@ class AnswerFactory
     public function createAnswerFromData(array $data)
     {
         if (!$this->validateData($data)) {
-            throw new \InvalidArgumentException('Some of these properties are not set: '.implode(', ',$this->requiredKeys).'.');
+            throw new \InvalidArgumentException('Answer: Some of these properties are not set: '.implode(', ',$this->requiredKeys).'.');
         }
 
         $answer = new Answer(['_items' => $data['items']]);
