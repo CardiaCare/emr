@@ -2,10 +2,10 @@
 
 namespace app\modules\survey\models;
 
+use app\modules\emr\models\Patient;
 use app\modules\organization\models\Doctor;
 use app\modules\survey\query\QuestionnaireQuery;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 
 class Questionnaire extends ActiveRecord
 {
@@ -39,6 +39,15 @@ class Questionnaire extends ActiveRecord
     public function getDoctor()
     {
         return $this->hasOne(Doctor::className(), ['id' => 'doctor_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPatients()
+    {
+        return $this->hasMany(Patient::className(), ['id' => 'patient_id'])
+            ->viaTable('patients_questionnaires', ['questionnaire_id' => 'id']);
     }
 
     /**
