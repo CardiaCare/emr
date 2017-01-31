@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\interrogatory\models\Factory;
+namespace app\modules\survey_v2\models\Factory;
 
-use app\modules\interrogatory\models\Answer;
-use app\modules\interrogatory\models\AnswerType;
+use app\modules\survey_v2\models\Answer;
+use app\modules\survey_v2\models\AnswerType;
 
 class AnswerFactory
 {

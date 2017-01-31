@@ -1,12 +1,12 @@
 <?php
 
-namespace app\modules\interrogatory\models\Converter;
+namespace app\modules\survey_v2\models\Converter;
 
-use app\modules\interrogatory\models\Questionnaire;
+use app\modules\survey_v2\models\Questionnaire;
 use yii\helpers\ArrayHelper;
-use app\modules\interrogatory\models\Question;
-use app\modules\interrogatory\models\Answer;
-use app\modules\interrogatory\models\AnswerItem;
+use app\modules\survey_v2\models\Question;
+use app\modules\survey_v2\models\Answer;
+use app\modules\survey_v2\models\AnswerItem;
 
 class QuestionnaireToArrayConverter
 {

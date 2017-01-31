@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\interrogatory\models\Factory;
+namespace app\modules\survey_v2\models\Factory;
 
-use app\modules\interrogatory\models\Question;
+use app\modules\survey_v2\models\Question;
 
 class QuestionFactory
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\interrogatory;
+namespace app\modules\survey_v2;
 
 use yii\base\Module;
 

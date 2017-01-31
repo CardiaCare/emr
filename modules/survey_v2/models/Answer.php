@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\interrogatory\models;
+namespace app\modules\survey_v2\models;
 
-use app\modules\interrogatory\models\Factory\AnswerItemFactory;
-use app\modules\interrogatory\query\AnswerQuery;
+use app\modules\survey_v2\models\Factory\AnswerItemFactory;
+use app\modules\survey_v2\query\AnswerQuery;
 use yii\db\ActiveRecord;
 
 class Answer extends ActiveRecord
