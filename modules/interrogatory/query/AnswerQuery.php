@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\test\query;
+namespace app\modules\interrogatory\query;
 
 use yii\db\ActiveQuery;
 

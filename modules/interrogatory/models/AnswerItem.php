@@ -1,14 +1,14 @@
 <?php
 
-namespace app\modules\test\models;
+namespace app\modules\interrogatory\models;
 
-use app\modules\test\models\Factory\AnswerFactory;
-use app\modules\test\query\QuestionQuery;
+use app\modules\interrogatory\models\Factory\AnswerFactory;
+use app\modules\interrogatory\query\AnswerItemQuery;
 use yii\db\ActiveRecord;
 
-class Question extends ActiveRecord
+class AnswerItem extends ActiveRecord
 {
-    public $_answers;
+    public $_subAnswers;
 
     /**
      * @return array
@@ -16,8 +16,9 @@ class Question extends ActiveRecord
     public function rules() : array
     {
         return array(
-            ['description', 'string'],
-            [['description'], 'required', 'message' => '{attribute} не может быть пустым'],
+            ['text', 'string'],
+            ['score', 'int'],
+            [['text', 'score'], 'required', 'message' => '{attribute} не может быть пустым'],
             ['uri', 'string'],
         );
     }
@@ -37,36 +38,36 @@ class Question extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $answers = $this->getAnswerFactory()->createAnswerListFromData($this->_answers);
+        $answers = $this->getAnswerFactory()->createAnswerListFromData($this->_subAnswers);
 
         foreach ($answers as $answer) {
-            $answer->link('question', $this);
+            $answer->link('parentAnswerItem', $this);
         }
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getQuestionnaire()
+    public function getSubAnswers()
     {
-        return $this->hasOne(Questionnaire::className(), ['id' => 'questionnaire_id']);
+        return $this->hasMany(Answer::className(), ['parent_answer_item_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnswers()
+    public function getAnswer()
     {
-        return $this->hasMany(Answer::className(), ['question_id' => 'id']);
+        return $this->hasOne(Answer::className(), ['id' => 'answer_id']);
     }
 
     /**
      * @inheritdoc
-     * @return QuestionQuery
+     * @return AnswerItemQuery
      */
     public static function find()
     {
-        return new QuestionQuery(get_called_class());
+        return new AnswerItemQuery(get_called_class());
     }
 
     /**
@@ -74,7 +75,7 @@ class Question extends ActiveRecord
      */
     public static function tableData()
     {
-        return 'question';
+        return 'answer_type';
     }
 
     /**

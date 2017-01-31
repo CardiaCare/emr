@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\test\models;
+namespace app\modules\interrogatory\models;
 
 use app\modules\organization\models\Doctor;
-use app\modules\test\models\Factory\QuestionFactory;
-use app\modules\test\query\QuestionnaireQuery;
+use app\modules\interrogatory\models\Factory\QuestionFactory;
+use app\modules\interrogatory\query\QuestionnaireQuery;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 

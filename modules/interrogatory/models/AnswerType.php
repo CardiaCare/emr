@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\test\models;
+namespace app\modules\interrogatory\models;
 
-use app\modules\test\query\AnswerTypeQuery;
+use app\modules\interrogatory\query\AnswerTypeQuery;
 use yii\db\ActiveRecord;
 
 class AnswerType extends ActiveRecord

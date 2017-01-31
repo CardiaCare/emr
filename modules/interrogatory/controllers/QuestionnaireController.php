@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\test\controllers;
+namespace app\modules\interrogatory\controllers;
 
 use app\controllers\RestController;
-use app\modules\test\models\Converter\QuestionnaireToArrayConverter;
-use app\modules\test\models\Questionnaire;
+use app\modules\interrogatory\models\Converter\QuestionnaireToArrayConverter;
+use app\modules\interrogatory\models\Questionnaire;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;

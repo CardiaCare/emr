@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\test\models\Factory;
+namespace app\modules\interrogatory\models\Factory;
 
-use app\modules\test\models\AnswerItem;
+use app\modules\interrogatory\models\AnswerItem;
 
 class AnswerItemFactory
 {
