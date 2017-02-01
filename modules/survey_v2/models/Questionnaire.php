@@ -2,6 +2,7 @@
 
 namespace app\modules\survey_v2\models;
 
+use app\modules\emr\models\Patient;
 use app\modules\organization\models\Doctor;
 use app\modules\survey_v2\models\Factory\QuestionFactory;
 use app\modules\survey_v2\query\QuestionnaireQuery;
@@ -85,6 +86,15 @@ class Questionnaire extends ActiveRecord
     public function getQuestions()
     {
         return $this->hasMany(Question::className(), ['questionnaire_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPatients()
+    {
+        return $this->hasMany(Patient::className(), ['id' => 'patient_id'])
+            ->viaTable('patients_questionnaires', ['questionnaire_id' => 'id']);
     }
 
     /**
