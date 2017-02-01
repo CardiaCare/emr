@@ -5,7 +5,7 @@ use app\modules\emr\EmrModule;
 use app\modules\organization\OrganizationModule;
 use app\modules\survey\SurveyModule;
 use app\modules\user\UserModule;
-use app\modules\interrogatory\InterrogatoryModule;
+use app\modules\survey_v2\SurveyV2Module;
 
 $config = [
     'id' => 'api',
@@ -18,7 +18,7 @@ $config = [
         'organization' => OrganizationModule::class,
         'archive' => ArchiveModule::class,
         'survey' => SurveyModule::class,
-        'interrogatory' => InterrogatoryModule::class,
+        'survey-v2' => SurveyV2Module::class,
     ],
     'components' => [
         'request' => [
@@ -135,11 +135,12 @@ $config = [
                 'DELETE patients/<patientid:\d+>/bloodpressure/bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete',
 
                 // interrogatory module
-                'POST questionnaire' => 'interrogatory/questionnaire/create',
-                'GET questionnaire/<id:\d+>' => 'interrogatory/questionnaire/view',
-                'GET questionnaire' => 'interrogatory/questionnaire/index',
-                'DELETE questionnaire/<id:\d+>' => 'interrogatory/questionnaire/delete',
-                'OPTIONS questionnaire/<id:\d+>' => 'interrogatory/questionnaire/options',
+                'POST questionnaire' => 'survey-v2/questionnaire/create',
+                'GET questionnaire' => 'survey-v2/questionnaire/index',
+                'OPTIONS questionnaire' => 'survey-v2/questionnaire/options',
+                'GET questionnaire/<id:\d+>' => 'survey-v2/questionnaire/view',
+                'DELETE questionnaire/<id:\d+>' => 'survey-v2/questionnaire/delete',
+                'OPTIONS questionnaire/<id:\d+>' => 'survey-v2/questionnaire/options',
             ],
         ],
     ],
