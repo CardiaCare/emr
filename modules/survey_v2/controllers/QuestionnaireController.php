@@ -104,9 +104,7 @@ class QuestionnaireController extends RestController
      */
     public function actionIndex()
     {
-        return Questionnaire::find()
-            ->byDoctorId(\Yii::$app->user->identity->id)
-            ->all();
+        return Questionnaire::find()->all();
     }
 
     /**
@@ -206,7 +204,6 @@ class QuestionnaireController extends RestController
         ]);
 
         $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
-
 
         $transaction = Questionnaire::getDb()->beginTransaction();
 
