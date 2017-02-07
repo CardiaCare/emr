@@ -4,6 +4,7 @@ namespace app\modules\emr\controllers;
 
 use app\controllers\RestController;
 use app\modules\emr\models\Patient;
+use app\modules\survey\models\Questionnaire;
 use app\modules\user\models\User;
 use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
@@ -55,12 +56,20 @@ class PatientController extends RestController
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'index', 'view'],
+                        'actions' => ['update', 'index', 'view', 'questionnaries',],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'index', 'view', 'delete'],
+                        'actions' => [
+                            'update',
+                            'index',
+                            'view',
+                            'delete',
+                            'addquestionnarie',
+                            'removequestionnarie',
+                            'questionnaries',
+                        ],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
                 ],
@@ -247,6 +256,70 @@ class PatientController extends RestController
         }
 
         return $model;
+    }
+
+    /**
+     * @param $pid
+     * @return \yii\db\ActiveQuery
+     * @throws NotFoundHttpException
+     * @todo add APIDOC
+     */
+    public function actionQuestionnaries($pid)
+    {
+        /** @var Patient $model */
+        $model = Patient::find()->byId($pid)->one();
+
+        if ($model == null) {
+            throw new NotFoundHttpException();
+        }
+
+        $questionnaries = $model->getQuestionnaries();
+
+        return $questionnaries;
+    }
+
+    public function actionAddquestionnarie($pid, $qid)
+    {
+        /** @var Patient $model */
+        $model = Patient::find()->byId($pid)->one();
+
+        if ($model == null) {
+            throw new NotFoundHttpException();
+        }
+
+        $questionnarie = Questionnaire::find()->byId($qid)->one();
+
+        if ($questionnarie == null) {
+            throw new NotFoundHttpException();
+        }
+
+        \Yii::$app->db->createCommand()
+            ->insert('patients_questionnaries', ['patient_id' => $pid, 'questionnarie_id' => $qid])
+            ->execute();
+
+        \Yii::$app->response->setStatusCode(204);
+    }
+
+    public function actionRemovequestionnarie($pid, $qid)
+    {
+        /** @var Patient $model */
+        $model = Patient::find()->byId($pid)->one();
+
+        if ($model == null) {
+            throw new NotFoundHttpException();
+        }
+
+        $questionnarie = Questionnaire::find()->byId($qid)->one();
+
+        if ($questionnarie == null) {
+            throw new NotFoundHttpException();
+        }
+
+        \Yii::$app->db->createCommand()
+            ->delete('patients_questionnaries', ['patient_id' => $pid, 'questionnarie_id' => $qid])
+            ->execute();
+
+        \Yii::$app->response->setStatusCode(204);
     }
 
     /**
