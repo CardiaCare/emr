@@ -102,7 +102,7 @@ class Patient extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getQuestionnaries()
+    public function getQuestionnaires()
     {
         return $this->hasMany(Questionnaire::className(), ['id' => 'questionnaire_id'])
             ->viaTable('patients_questionnaires', ['patient_id' => 'id']);
