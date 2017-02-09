@@ -273,9 +273,9 @@ class PatientController extends RestController
             throw new NotFoundHttpException();
         }
 
-        $questionnaries = $model->getQuestionnaries();
+        $questionnaires = $model->getQuestionnaires();
 
-        return $questionnaries;
+        return $questionnaires;
     }
 
     public function actionAddquestionnaire($pid, $qid)
