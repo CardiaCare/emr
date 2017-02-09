@@ -264,7 +264,7 @@ class PatientController extends RestController
      * @throws NotFoundHttpException
      * @todo add APIDOC
      */
-    public function actionQuestionnaries($pid)
+    public function actionQuestionnaires($pid)
     {
         /** @var Patient $model */
         $model = Patient::find()->byId($pid)->one();
@@ -278,7 +278,7 @@ class PatientController extends RestController
         return $questionnaries;
     }
 
-    public function actionAddquestionnarie($pid, $qid)
+    public function actionAddquestionnaire($pid, $qid)
     {
         /** @var Patient $model */
         $model = Patient::find()->byId($pid)->one();
@@ -300,7 +300,7 @@ class PatientController extends RestController
         \Yii::$app->response->setStatusCode(204);
     }
 
-    public function actionRemovequestionnarie($pid, $qid)
+    public function actionRemovequestionnaire($pid, $qid)
     {
         /** @var Patient $model */
         $model = Patient::find()->byId($pid)->one();
