@@ -294,7 +294,7 @@ class PatientController extends RestController
         }
 
         \Yii::$app->db->createCommand()
-            ->insert('patients_questionnaries', ['patient_id' => $pid, 'questionnarie_id' => $qid])
+            ->insert('patients_questionnaires', ['patient_id' => $pid, 'questionnaire_id' => $qid])
             ->execute();
 
         \Yii::$app->response->setStatusCode(204);
@@ -316,7 +316,7 @@ class PatientController extends RestController
         }
 
         \Yii::$app->db->createCommand()
-            ->delete('patients_questionnaries', ['patient_id' => $pid, 'questionnarie_id' => $qid])
+            ->delete('patients_questionnaires', ['patient_id' => $pid, 'questionnaire_id' => $qid])
             ->execute();
 
         \Yii::$app->response->setStatusCode(204);
