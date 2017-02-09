@@ -24,6 +24,7 @@ class Questionnaire extends ActiveRecord
             [['version', 'lang', 'emergency'], 'required', 'message' => '{attribute} не может быть пустым'],
             ['version', 'string'],
             ['description', 'string'],
+            ['data', 'string'],
             ['created_at', 'date'],
         );
     }
