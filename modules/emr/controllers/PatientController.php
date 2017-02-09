@@ -56,7 +56,7 @@ class PatientController extends RestController
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'index', 'view', 'questionnaries',],
+                        'actions' => ['update', 'index', 'view', 'questionnaires',],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                     [
@@ -66,9 +66,9 @@ class PatientController extends RestController
                             'index',
                             'view',
                             'delete',
-                            'addquestionnarie',
-                            'removequestionnarie',
-                            'questionnaries',
+                            'addquestionnaire',
+                            'removequestionnaire',
+                            'questionnaires',
                         ],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
