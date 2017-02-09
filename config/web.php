@@ -83,9 +83,9 @@ $config = [
                 'GET patients/<id:\d+>' => 'emr/patient/view',
                 'PUT patients/<id:\d+>' => 'emr/patient/update',
                 'DELETE patients/<id:\d+>' => 'emr/patient/delete',
-                'GET patients/<pid:\d+>/questionnaries>' => 'emr/patient/questionnaires',
-                'POST patients/<pid:\d+>/questionnaries/<qid:\d+>' => 'emr/patient/addquestionnaire',
-                'DELETE patients/<pid:\d+>/questionnaries/<qid:\d+>' => 'emr/patient/removequestionnaire',
+                'GET patients/<pid:\d+>/questionnaires>' => 'emr/patient/questionnaires',
+                'POST patients/<pid:\d+>/questionnaires/<qid:\d+>' => 'emr/patient/addquestionnaire',
+                'DELETE patients/<pid:\d+>/questionnaires/<qid:\d+>' => 'emr/patient/removequestionnaire',
                 'OPTIONS patients/<id:\d+>' => 'emr/patient/options',
                 
                 'GET doctors' => 'emr/doctor/index',
