@@ -31,7 +31,15 @@ class PatientController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
-                'only' => ['update', 'index', 'view', 'delete'],
+                'only' => [
+                    'update',
+                    'index',
+                    'view',
+                    'delete',
+                    'addquestionnaire',
+                    'removequestionnaire',
+                    'questionnaires',
+                ],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -44,6 +52,9 @@ class PatientController extends RestController
                     'view' => ['get'],
                     'options' => ['options'],
                     'delete' => ['delete'],
+                    'addquestionnaire' => ['post'],
+                    'removequestionnaire' => ['delete'],
+                    'questionnaires' => ['get'],
                 ],
             ],
             'accessControl' => [
