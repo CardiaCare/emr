@@ -271,9 +271,8 @@ class PatientController extends RestController
 
     /**
      * @param $pid
-     * @return \yii\db\ActiveQuery
+     * @return array|\yii\db\ActiveRecord[]
      * @throws NotFoundHttpException
-     * @todo add APIDOC
      */
     public function actionQuestionnaires($pid)
     {
@@ -284,7 +283,7 @@ class PatientController extends RestController
             throw new NotFoundHttpException();
         }
 
-        $questionnaires = $model->getQuestionnaires();
+        $questionnaires = $model->getQuestionnaires()->all();
 
         return $questionnaires;
     }
