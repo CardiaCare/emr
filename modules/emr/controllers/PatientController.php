@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
+use yii\web\ConflictHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 
@@ -294,13 +295,22 @@ class PatientController extends RestController
         $model = Patient::find()->byId($pid)->one();
 
         if ($model == null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException("Patient $pid is not found");
+        }
+
+        $existQuesttionnaires =
+            $model->getQuestionnaires()
+                ->andWhere(['questionnaire_id' => $qid])
+                ->one();
+
+        if (!is_null($existQuesttionnaires)) {
+            throw new ConflictHttpException("Questionnaire $qid has already attached to patient $pid");
         }
 
         $questionnarie = Questionnaire::find()->byId($qid)->one();
 
         if ($questionnarie == null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException("Questionnaire $qid is not found");
         }
 
         \Yii::$app->db->createCommand()
@@ -316,13 +326,13 @@ class PatientController extends RestController
         $model = Patient::find()->byId($pid)->one();
 
         if ($model == null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException("Patient $pid is not found");
         }
 
         $questionnarie = Questionnaire::find()->byId($qid)->one();
 
         if ($questionnarie == null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException("Questionnaire $qid is not found");
         }
 
         \Yii::$app->db->createCommand()
