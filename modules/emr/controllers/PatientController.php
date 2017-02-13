@@ -300,7 +300,7 @@ class PatientController extends RestController
 
         $existQuesttionnaires =
             $model->getQuestionnaires()
-                ->andWhere(['questionnaire_id' => $qid])
+                ->andWhere(['id' => $qid])
                 ->one();
 
         if (!is_null($existQuesttionnaires)) {
