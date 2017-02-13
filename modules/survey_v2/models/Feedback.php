@@ -7,6 +7,7 @@ use app\modules\survey_v2\models\Factory\RespondFactory;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use app\modules\survey_v2\query\FeedbackQuery;
+use yii\db\Expression;
 
 class Feedback extends ActiveRecord
 {
@@ -21,7 +22,7 @@ class Feedback extends ActiveRecord
             ['data', 'string'],
             ['lang', 'string'],
             ['questionnaire_id', 'integer'],
-            [['questionnaire_id', 'lang'], 'required', 'message' => '{attribute} не может быть пустым']
+            [['questionnaire_id', 'lang'], 'required', 'message' => '{attribute} не может быть пустым'],
         );
     }
 
@@ -35,7 +36,7 @@ class Feedback extends ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => false,
-                'value' => date('Y-m-d'),
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
