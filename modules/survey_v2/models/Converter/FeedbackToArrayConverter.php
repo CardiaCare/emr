@@ -52,7 +52,7 @@ class FeedbackToArrayConverter
                         ResponseItem::className() => [
                             'id',
                             'responseScore' => 'score',
-                            'answer_item_id',
+                            'linkedItems_id' => 'answer_item_id',
                             'subResponses' => function (ResponseItem $model) {
                                 return $this->convertResponseToArray($model->subResponses);
                             }
