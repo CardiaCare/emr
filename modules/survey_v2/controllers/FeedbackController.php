@@ -98,14 +98,29 @@ class FeedbackController extends RestController
 
         $model->load(\Yii::$app->getRequest()->getBodyParams(), '');
 
-        if ($model->save()) {
-            \Yii::$app->response->setStatusCode(201);
-            return $model;
-        } elseif ($model->hasErrors()) {
-            \Yii::$app->response->setStatusCode(422);
-            return ['errors' => $model->getErrors()];
-        } else {
-            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+        $transaction = Feedback::getDb()->beginTransaction();
+
+        try {
+            if ($model->save()) {
+                \Yii::$app->response->setStatusCode(201);
+                $transaction->commit();
+
+                return $model;
+            } elseif ($model->hasErrors()) {
+                \Yii::$app->response->setStatusCode(422);
+
+                return ['errors' => $model->getErrors()];
+            } else {
+                throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+            }
+        } catch(\Exception $e) {
+            $transaction->rollBack();
+
+            throw $e;
+        } catch(\Throwable $e) {
+            $transaction->rollBack();
+
+            throw $e;
         }
     }
 
