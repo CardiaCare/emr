@@ -27,7 +27,7 @@ class FeedbackController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
-                'only' => ['update', 'index', 'view', 'delete'],
+                'only' => ['update', 'index', 'view', 'delete', 'create'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
