@@ -114,21 +114,6 @@ $config = [
                 'GET archive/patients/<id:\d+>/revision/<revision:\d+>' => 'archive/patient/view',
                 'OPTIONS  archive/patients/<id:\d+>/revision/<revision:\d+>' => 'archive/patients/options',
 
-                // survey methods
-
-                'POST survey' => 'survey/questionnaire/create',
-                'OPTIONS survey' => 'survey/questionnaire/options',
-                'GET survey' => 'survey/questionnaire/index',
-                'GET survey/<id:\d+>' => 'survey/questionnaire/view',
-                'OPTIONS survey/<id:\d+>' => 'survey/questionnaire/options',
-                'DELETE survey/<id:\d+>' => 'survey/questionnaire/delete',
-
-                'POST patients/<patientid:\d+>/feedback' => 'survey/feedback/create',
-                'OPTIONS patients/<patientid:\d+>/feedback' => 'survey/feedback/options',
-                'GET patients/<patientid:\d+>/feedback' => 'survey/feedback/index',
-                'GET patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey/feedback/view',
-                'OPTIONS patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey/feedback/options',
-                'DELETE patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey/feedback/delete',
 
                 // blood pressure methods
                 'POST patients/<patientid:\d+>/bloodpressure' => 'emr/bloodpressure/create',
@@ -146,13 +131,32 @@ $config = [
                 'DELETE questionnaire/<id:\d+>' => 'survey-v2/questionnaire/delete',
                 'OPTIONS questionnaire/<id:\d+>' => 'survey-v2/questionnaire/options',
 
-                'POST v2/feedback' => 'survey-v2/feedback/create',
-                'OPTIONS v2/feedback' => 'survey-v2/feedback/options',
-                'GET v2/patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/index',
-                'OPTIONS v2/patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/options',
-                'GET v2/patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/view',
-                'DELETE v2/patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/delete',
-                'OPTIONS v2/patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/options',
+                'POST feedback' => 'survey-v2/feedback/create',
+                'OPTIONS feedback' => 'survey-v2/feedback/options',
+                'GET patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/index',
+                'OPTIONS patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/options',
+                'GET patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/view',
+                'DELETE patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/delete',
+                'OPTIONS patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/options',
+                
+                
+                // survey methods
+
+//                'POST survey' => 'survey/questionnaire/create',
+//                'OPTIONS survey' => 'survey/questionnaire/options',
+//                'GET survey' => 'survey/questionnaire/index',
+//                'GET survey/<id:\d+>' => 'survey/questionnaire/view',
+//                'OPTIONS survey/<id:\d+>' => 'survey/questionnaire/options',
+//                'DELETE survey/<id:\d+>' => 'survey/questionnaire/delete',
+//
+//                'POST patients/<patientid:\d+>/feedback' => 'survey/feedback/create',
+//                'OPTIONS patients/<patientid:\d+>/feedback' => 'survey/feedback/options',
+//                'GET patients/<patientid:\d+>/feedback' => 'survey/feedback/index',
+//                'GET patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey/feedback/view',
+//                'OPTIONS patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey/feedback/options',
+//                'DELETE patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey/feedback/delete',
+                
+                
             ],
         ],
     ],
