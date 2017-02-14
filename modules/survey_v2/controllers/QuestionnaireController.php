@@ -235,7 +235,7 @@ class QuestionnaireController extends RestController
      * @apiDescription Deletes questionnaire
      * @apiPermission Doctor
      * @apiSuccessExample Success-Response:
-     *     HTTP/1.1 201 Created
+     *     HTTP/1.1 204 No Content
      * @apiErrorExample {json} Unauthorized
      *      HTTP/1.1 401 Unauthorized
      *      {
