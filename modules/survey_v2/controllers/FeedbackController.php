@@ -251,7 +251,7 @@ class FeedbackController extends RestController
      * @apiDescription Deletes feedback
      * @apiPermission Patient
      * @apiSuccessExample Success-Response:
-     *     HTTP/1.1 404 Not found
+     *     HTTP/1.1 204 No Content
      * @apiErrorExample {json} Unauthorized
      *      HTTP/1.1 401 Unauthorized
      *      {
