@@ -22,8 +22,8 @@ class BloodPressure extends ActiveRecord
     public function rules() : array
     {
         return array(
-            ['systolic', 'integer', 'required', 'message' => '{attribute} не может быть пустым'],
-            ['diastolic', 'integer', 'required', 'message' => '{attribute} не может быть пустым']
+            ['systolic', 'integer'],
+            ['diastolic', 'integer']
         );
     }
 
