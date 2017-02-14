@@ -138,13 +138,21 @@ $config = [
                 'OPTIONS patients/<patientid:\d+>/bloodpressure/<id:\d+>' => 'emr/bloodpressure/options',
                 'DELETE patients/<patientid:\d+>/bloodpressure/bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete',
 
-                // interrogatory module
+                // survey_v2 module
                 'POST questionnaire' => 'survey-v2/questionnaire/create',
                 'GET questionnaire' => 'survey-v2/questionnaire/index',
                 'OPTIONS questionnaire' => 'survey-v2/questionnaire/options',
                 'GET questionnaire/<id:\d+>' => 'survey-v2/questionnaire/view',
                 'DELETE questionnaire/<id:\d+>' => 'survey-v2/questionnaire/delete',
                 'OPTIONS questionnaire/<id:\d+>' => 'survey-v2/questionnaire/options',
+
+                'POST v2/feedback' => 'survey-v2/feedback/create',
+                'OPTIONS v2/feedback' => 'survey-v2/feedback/options',
+                'GET v2/patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/index',
+                'OPTIONS v2/patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/options',
+                'GET v2/patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/view',
+                'DELETE v2/patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/delete',
+                'OPTIONS v2/patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/options',
             ],
         ],
     ],

@@ -8,6 +8,7 @@ use app\modules\survey_v2\models\Factory\QuestionFactory;
 use app\modules\survey_v2\query\QuestionnaireQuery;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 class Questionnaire extends ActiveRecord
 {
@@ -39,7 +40,7 @@ class Questionnaire extends ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => false,
-                'value' => date('Y-m-d'),
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
