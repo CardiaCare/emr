@@ -15,6 +15,17 @@ use yii\db\ActiveRecord;
 class BloodPressure extends ActiveRecord
 {
     //put your code here
+    
+        /**
+     * @return array
+     */
+    public function rules() : array
+    {
+        return array(
+            ['systolic', 'integer', 'required', 'message' => '{attribute} не может быть пустым'],
+            ['diastolic', 'integer', 'required', 'message' => '{attribute} не может быть пустым']
+        );
+    }
 
     /**
      * @return \yii\db\ActiveQuery
