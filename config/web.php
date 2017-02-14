@@ -121,7 +121,7 @@ $config = [
                 'GET patients/<patientid:\d+>/bloodpressure' => 'emr/bloodpressure/index',
                 'GET patients/<patientid:\d+>/bloodpressure/<id:\d+>' => 'emr/bloodpressure/view',
                 'OPTIONS patients/<patientid:\d+>/bloodpressure/<id:\d+>' => 'emr/bloodpressure/options',
-                'DELETE patients/<patientid:\d+>/bloodpressure/bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete',
+                'DELETE patients/<patientid:\d+>/bloodpressure/<id:\d+>' => 'emr/bloodpressure/delete',
 
                 // survey_v2 module
                 'POST questionnaire' => 'survey-v2/questionnaire/create',
