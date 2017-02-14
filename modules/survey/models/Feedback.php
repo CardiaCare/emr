@@ -23,6 +23,7 @@ class Feedback extends ActiveRecord
     {
         return array(
             ['data', 'string'],
+            ['lang', 'string'],
             ['questionnaire_id', 'integer'],
             [['data', 'questionnaire_id'], 'required', 'message' => '{attribute} не может быть пустым']
         );
