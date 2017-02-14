@@ -10,4 +10,10 @@ use yii\base\Module;
  */
 class UserModule extends Module
 {
+    public function init()
+    {
+        parent::init();
+        \Yii::$app->user->enableSession = false;
+        \Yii::$app->user->enableAutoLogin = false;
+    }
 }
