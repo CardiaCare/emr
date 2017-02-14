@@ -133,6 +133,8 @@ $config = [
 
                 'POST feedback' => 'survey-v2/feedback/create',
                 'OPTIONS feedback' => 'survey-v2/feedback/options',
+                'GET patients/feedback' => 'survey-v2/feedback/index',
+                'OPTIONS patients/feedback' => 'survey-v2/feedback/options',
                 'GET patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/index',
                 'OPTIONS patients/<patientid:\d+>/feedback' => 'survey-v2/feedback/options',
                 'GET patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/view',
