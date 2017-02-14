@@ -48,7 +48,7 @@ class Feedback extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->patient_id = \Yii::$app->user->identity->id;
+                $this->patient_id = \Yii::$app->user->identity->patient->id;
             }
 
             return true;
