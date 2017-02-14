@@ -2,9 +2,11 @@
 
 namespace app\modules\emr\models;
 
-
+use app\modules\emr\models\Patient;
 use app\modules\emr\query\BloodPressureQuery;
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 
 /**
@@ -27,7 +29,7 @@ class BloodPressure extends ActiveRecord
         );
     }
     
-        /**
+    /**
      * @return array
      */
     public function behaviors()
@@ -40,6 +42,38 @@ class BloodPressure extends ActiveRecord
                 'value' => new Expression('NOW()'),
             ],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->patient_id = \Yii::$app->user->identity->patient->id;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        if (!is_null($this->_responds)) {
+            $responds = $this->getRespondFactory()->createListFromData($this->_responds);
+
+            foreach ($responds as $respond) {
+                $respond->link('bloodpressure', $this);
+            }
+        }
     }
     
 
