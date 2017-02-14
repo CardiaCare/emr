@@ -60,22 +60,7 @@ class BloodPressure extends ActiveRecord
         return false;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-
-        if (!is_null($this->_responds)) {
-            $responds = $this->getRespondFactory()->createListFromData($this->_responds);
-
-            foreach ($responds as $respond) {
-                $respond->link('bloodpressure', $this);
-            }
-        }
-    }
-    
+   
 
     /**
      * @return \yii\db\ActiveQuery
