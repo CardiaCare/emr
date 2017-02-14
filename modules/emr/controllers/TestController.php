@@ -26,7 +26,7 @@ class TestController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
-                'only' => ['update', 'index', 'view', 'delete'],
+                'only' => ['create','update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
