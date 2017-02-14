@@ -23,7 +23,7 @@ class FeedbackController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
-                'only' => ['create','update', 'index', 'view', 'delete'],
+                'only' => ['create', 'update', 'index', 'view', 'delete'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -129,7 +129,7 @@ class FeedbackController extends RestController
      * @apiVersion 1.0.0
      * @apiGroup Feedback
      * @apiName  GetFeedback
-     * @apiDescription Shows uploaded Feedbacks by curent patients
+     * @apiDescription Shows uploaded Feedbacks by current patients
      * @apiPermission Doctor|Patient
      * @apiParam {Integer} [patientid] Patient's id
      * @apiSuccessExample {json} All Feedbacks:
@@ -175,8 +175,12 @@ class FeedbackController extends RestController
      *          "status": 403
      *      }
      */
-    public function actionIndex($patientid)
+    public function actionIndex($patientid = null)
     {
+        if (is_null($patientid)) {
+            return Feedback::find()->all();
+        }
+
         return Feedback::find()->byPatientId($patientid)->all();
     }
 
@@ -240,9 +244,38 @@ class FeedbackController extends RestController
     }
 
     /**
-     * Detach Feedback
-     * @param $id
-     * @throws \yii\db\Exception
+     * @api {delete} /feedback/{id} Delete feedback
+     * @apiVersion 1.0.0
+     * @apiGroup Feedback
+     * @apiName  DeleteFeedback
+     * @apiDescription Deletes feedback
+     * @apiPermission Patient
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 404 Not found
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
      */
     public function actionDelete($id)
     {
