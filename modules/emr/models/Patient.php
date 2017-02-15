@@ -74,6 +74,11 @@ class Patient extends ActiveRecord
         ];
     }
 
+    public function getDoctors()
+    {
+        return $this->hasMany(Doctor::className(), ['id' => 'doctor_id'])
+            ->viaTable('patient_to_doctor', ['patient_id' => 'id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

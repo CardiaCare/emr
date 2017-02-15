@@ -40,6 +40,7 @@ class PatientController extends RestController
                     'addquestionnaire',
                     'removequestionnaire',
                     'questionnaires',
+                    'doctors'
                 ],
                 'authMethods' => [
                     HttpBasicAuth::class,
@@ -56,6 +57,7 @@ class PatientController extends RestController
                     'addquestionnaire' => ['post'],
                     'removequestionnaire' => ['delete'],
                     'questionnaires' => ['get'],
+                    'doctors' => ['get']
                 ],
             ],
             'accessControl' => [
@@ -68,7 +70,7 @@ class PatientController extends RestController
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['update', 'index', 'view', 'questionnaires',],
+                        'actions' => ['update', 'index', 'view', 'questionnaires', 'doctors'],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                     [
@@ -81,6 +83,7 @@ class PatientController extends RestController
                             'addquestionnaire',
                             'removequestionnaire',
                             'questionnaires',
+                            'doctors',
                         ],
                         'roles' => [User::ROLE_DOCTOR],
                     ],
@@ -268,6 +271,24 @@ class PatientController extends RestController
         }
 
         return $model;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionDoctors($id)
+    {
+        $model = Patient::find()->byId($id)->one();
+
+        if ($model == null) {
+            throw new NotFoundHttpException("Patient $pid is not found");
+        }
+
+        $doctors = $model->getDoctors()->all();
+
+        return $doctors;
     }
 
     /**
