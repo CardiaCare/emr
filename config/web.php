@@ -88,8 +88,8 @@ $config = [
                 'OPTIONS patients' => 'emr/patient/options',
                 'GET patients/<id:\d+>/doctors' => 'emt/patient/doctors',
                 'OPTIONS patients/<id:\d+>' => 'emr/patient/options',
-                'OPTIONS patients/<id:\d+>/doctors>' => 'emr/patient/options',
-                'OPTIONS patients/<pid:\d+>/questionnaires>' => 'emr/patient/options',
+                'OPTIONS patients/<id:\d+>/doctors' => 'emr/patient/options',
+                'OPTIONS patients/<pid:\d+>/questionnaires' => 'emr/patient/options',
                 'OPTIONS patients/<pid:\d+>/questionnaires/<qid:\d+>' => 'emr/patient/options',
                 
                 'GET doctors' => 'emr/doctor/index',

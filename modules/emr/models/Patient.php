@@ -74,6 +74,9 @@ class Patient extends ActiveRecord
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getDoctors()
     {
         return $this->hasMany(Doctor::className(), ['id' => 'doctor_id'])

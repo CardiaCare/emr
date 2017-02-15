@@ -283,7 +283,7 @@ class PatientController extends RestController
         $model = Patient::find()->byId($id)->one();
 
         if ($model == null) {
-            throw new NotFoundHttpException("Patient $pid is not found");
+            throw new NotFoundHttpException("Patient $id is not found");
         }
 
         $doctors = $model->getDoctors()->all();
