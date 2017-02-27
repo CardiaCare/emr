@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 
@@ -144,6 +145,10 @@ class UserController extends RestController
 
     public function actionView($id)
     {
+        if($id != \Yii::$app->user->identity->id){
+            throw new ForbiddenHttpException();
+        }
+
         $model = User::find()->byId($id)->one();
 
         if ($model == null) {
