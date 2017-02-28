@@ -167,6 +167,7 @@ class PatientController extends RestController
      * @apiVersion 1.0.0
      * @apiGroup Patient
      * @apiName  ViewAllPatients
+     * @apiParam {Integer} [id] Patient's id
      * @apiDescription Shows all patients information
      * @apiPermission Doctor
      * @apiSuccessExample {json} Success-Response:
@@ -222,6 +223,7 @@ class PatientController extends RestController
      * @apiVersion 1.0.0
      * @apiGroup Patient
      * @apiName  ViewPatient
+     * @apiParam {Integer} [id] Patient's id
      * @apiDescription Shows patient information
      * @apiPermission Doctor|Patient
      * @apiSuccessExample {json} Success-Response:
@@ -274,9 +276,50 @@ class PatientController extends RestController
     }
 
     /**
-     * @param $id
-     * @return mixed
-     * @throws NotFoundHttpException
+     * @api {get} /patients/{id}/doctors View patient's doctors
+     * @apiVersion 1.0.0
+     * @apiGroup Patient
+     * @apiName  Viewdoctors
+     * @apiParam {Integer} [id] Patient's id
+     * @apiDescription Shows patient doctors
+     * @apiPermission Patient
+     * @apiSuccessExample {json} Success-Response:
+     *      HTTP/1.1 200 OK
+*[
+*  {
+*   "id": 2,
+*    "user_id": 12,
+*    "organization_id": 3,
+*    "name": "Jon",
+*    "patronymic": NULL,
+*    "surname": "Smith",
+*    "email": "smith_jon@mail.com"
+*  }
+*]
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
      */
     public function actionDoctors($id)
     {
@@ -292,9 +335,50 @@ class PatientController extends RestController
     }
 
     /**
-     * @param $pid
-     * @return array|\yii\db\ActiveRecord[]
-     * @throws NotFoundHttpException
+     * @api {get} /patients/{id}/questionnaires View patient's questionnaires
+     * @apiVersion 1.0.0
+     * @apiGroup Patient
+     * @apiName  ViewQuestionnaires
+     * @apiParam {Integer} [id] Patient's id
+     * @apiDescription Shows patient questionnaires
+     * @apiPermission Doctor|Patient
+     * @apiSuccessExample {json} Success-Response:
+     *      HTTP/1.1 200 OK
+*[
+ * {
+ *   "id": 7,
+ *   "doctor_id": 12,
+ *   "version": "0.1.1",
+ *   "description": "new questionnaire",
+ *   "created_at": "2017-02-09",
+ *   "lang": "En",
+ *   "emergency": 0
+*  }
+*]
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
      */
     public function actionQuestionnaires($pid)
     {
@@ -309,6 +393,44 @@ class PatientController extends RestController
 
         return $questionnaires;
     }
+    
+    
+    /**
+     * @api {post} /patients/{pid}/questionnaires/{qid} Link patient with questionnaire
+     * @apiVersion 1.0.0
+     * @apiGroup Patient
+     * @apiName  CreateQuestionnaireLink
+         * @apiParam {Integer} [pid] Patient's id
+         * @apiParam {Integer} [qid] Questionnaire's id
+     * @apiDescription Link patient with questionnaire
+     * @apiPermission Doctor
+     * @apiParamExample {json} Request-Example:
+     *          {
+     *              "version": "1.0.1",
+     *              "description": "Description",
+     *              "lang": "ru",
+     *              "questions": []
+     *          }
+     * @apiPermission Doctor
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 201 Created
+     *          {
+     *              "id": 2,
+     *              "doctor_id": "2",
+     *              "version": "1.0.1",
+     *              "created_at": "2016-12-31",
+     *              "description": "Description",
+     *              "lang": "ru"
+     *          }
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     */
 
     public function actionAddquestionnaire($pid, $qid)
     {
@@ -340,7 +462,45 @@ class PatientController extends RestController
 
         \Yii::$app->response->setStatusCode(204);
     }
-
+    
+    
+    /**
+     * @api {delete} /patients/{pid}/questionnaires/{qid} Delete  link between patient and questionnaire
+     * @apiVersion 1.0.0
+     * @apiGroup Patient
+     * @apiName  DeleteQuestionnaireLink
+     * @apiDescription Deletes questionnaire
+         * @apiParam {Integer} [pid] Patient's id
+         * @apiParam {Integer} [qid] Questionnaire's id
+     * @apiDescription Delete link between patient and questionnaire
+     * @apiPermission Doctor
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 Deleted
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
+     */
     public function actionRemovequestionnaire($pid, $qid)
     {
         /** @var Patient $model */
@@ -364,9 +524,38 @@ class PatientController extends RestController
     }
 
     /**
-     * Detach patient from doctor
-     * @param $id
-     * @throws \yii\db\Exception
+     * @api {delete} /patient/{id} Delete patient
+     * @apiVersion 1.0.0
+     * @apiGroup Ppatient
+     * @apiName  Deletepatient
+     * @apiDescription Deletes questionnaire
+     * @apiPermission Doctor
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 Delete
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name":"Forbidden",
+     *          "message":"You are not allowed to perform this action.",
+     *          "code":0,
+     *          "status":403
+     *      }
+     * @apiErrorExample {json} Not found
+     *      HTTP/1.1 404 Not found
+     *      {
+     *          "name":"Not found",
+     *          "message":"Not found",
+     *          "code":0,
+     *          "status":404
+     *      }
      */
     public function actionDelete($id)
     {
