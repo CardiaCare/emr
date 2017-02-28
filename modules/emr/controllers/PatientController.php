@@ -526,8 +526,8 @@ class PatientController extends RestController
     /**
      * @api {delete} /patient/{id} Delete patient
      * @apiVersion 1.0.0
-     * @apiGroup Ppatient
-     * @apiName  Deletepatient
+     * @apiGroup Patient
+     * @apiName  DeletePatient
      * @apiDescription Deletes questionnaire
      * @apiPermission Doctor
      * @apiSuccessExample Success-Response:
