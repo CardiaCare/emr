@@ -19,7 +19,6 @@ class Feedback extends ActiveRecord
     public function rules() : array
     {
         return array(
-            ['data', 'string'],
             ['lang', 'string'],
             ['questionnaire_id', 'integer'],
             [['questionnaire_id', 'lang'], 'required', 'message' => '{attribute} не может быть пустым'],
