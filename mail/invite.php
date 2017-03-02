@@ -5,6 +5,7 @@
  * @var $userInvite \app\modules\user\models\UserInvite
  */
 
+
 ?>
 
 Здравствуйте,
