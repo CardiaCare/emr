@@ -5,6 +5,7 @@ namespace app\modules\emr\controllers;
 use app\controllers\RestController;
 use app\modules\emr\models\Biosignal;
 use app\modules\user\models\User;
+use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\filters\AccessControl;
@@ -45,6 +46,11 @@ class BiosignalController extends RestController
                         'allow'   => true,
                         'actions' => ['create'],
                         'roles'   => [User::ROLE_PATIENT],
+                    ],
+                    [
+                        'allow'   => true,
+                        'actions' => ['index'],
+                        'roles'   => [User::ROLE_DOCTOR, User::ROLE_PATIENT],
                     ]
                 ],
             ],
@@ -56,6 +62,56 @@ class BiosignalController extends RestController
                 ],
             ],
         ];
+    }
+
+    /**
+     * @api {get} /biosignals Get Biosignal
+     * @apiVersion 1.0.0
+     * @apiGroup Biosignal
+     * @apiName  GetBiosignal
+     * @apiDescription Shows uploaded Biosignals by patients
+     * @apiPermission Doctor|Patient
+     * @apiSuccessExample {json} All Feedbacks:
+     *      HTTP/1.1 200 OK
+     *      [
+     *      {
+     *          "id": 1,
+     *          "patient_id": 1,
+     *          "data": "filedata",
+     *          "created_at": "2017-02-15 08:56:41"
+     *      },
+     *      {
+     *          "id": 2,
+     *          "patient_id": 1,
+     *          "data": "filedata",
+     *          "created_at": "2017-02-15 08:56:41"
+     *      },
+     *      ]
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name": "Unauthorized",
+     *          "message": "You are requesting with an invalid credential.",
+     *          "code": 0,
+     *          "status": 401
+     *      }
+     * @apiErrorExample {json} Forbidden
+     *      HTTP/1.1 403 Forbidden
+     *      {
+     *          "name": "Forbidden",
+     *          "message": "You are not allowed to perform this action.",
+     *          "code": 0,
+     *          "status": 403
+     *      }
+     */
+    public function actionIndex()
+    {
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => Biosignal::find(),
+        ]))->getModels();
     }
 
     /**
@@ -96,7 +152,7 @@ class BiosignalController extends RestController
         }
     }
     
-        public function actionOptions()
+    public function actionOptions()
     {
         \Yii::$app->response->setStatusCode(200);
     }

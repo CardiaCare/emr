@@ -75,6 +75,7 @@ $config = [
                 'GET tests/<id:\d+>' => 'emr/test/index',
                 'OPTIONS tests/<id:\d+>' => 'emr/test/options',
 
+                'GET biosignals' => 'emr/biosignal/index',
                 'POST biosignals' => 'emr/biosignal/create',
                 'OPTIONS biosignals' => 'emr/biosignal/options',
 
