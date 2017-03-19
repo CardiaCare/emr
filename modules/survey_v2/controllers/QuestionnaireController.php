@@ -5,6 +5,7 @@ namespace app\modules\survey_v2\controllers;
 use app\controllers\RestController;
 use app\modules\survey_v2\models\Converter\QuestionnaireToArrayConverter;
 use app\modules\survey_v2\models\Questionnaire;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
@@ -104,7 +105,12 @@ class QuestionnaireController extends RestController
      */
     public function actionIndex()
     {
-        return Questionnaire::find()->all();
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => Questionnaire::find(),
+        ]))->getModels();
     }
 
     /**

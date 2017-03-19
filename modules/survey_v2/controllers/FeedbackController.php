@@ -6,6 +6,7 @@ use app\controllers\RestController;
 use app\modules\survey_v2\models\Converter\FeedbackToArrayConverter;
 use app\modules\survey_v2\models\Feedback;
 use app\modules\user\models\User;
+use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBasicAuth;
@@ -178,12 +179,21 @@ class FeedbackController extends RestController
     public function actionIndex($patientid = null)
     {
         if (is_null($patientid)) {
-            return Feedback::find()->all();
+            return (new ActiveDataProvider([
+                'pagination' => [
+                    'defaultPageSize' => 10,
+                ],
+                'query' => Feedback::find(),
+            ]))->getModels();
         }
 
-        return Feedback::find()->byPatientId($patientid)->all();
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => Feedback::find()->byPatientId($patientid),
+        ]))->getModels();
     }
-
 
     /**
      * @api {get} /patients/{patientid}/Feedback/{id} View Feedback's information
