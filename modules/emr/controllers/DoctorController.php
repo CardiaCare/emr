@@ -5,6 +5,7 @@ namespace app\modules\emr\controllers;
 use app\controllers\RestController;
 use app\modules\emr\models\Doctor;
 use app\modules\user\models\User;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -167,7 +168,12 @@ class DoctorController extends RestController
      */
     public function actionIndex()
     {
-        return Doctor::find()->all();
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => Doctor::find(),
+        ]))->getModels();
     }
 
     /**

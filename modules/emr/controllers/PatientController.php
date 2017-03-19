@@ -6,6 +6,7 @@ use app\controllers\RestController;
 use app\modules\emr\models\Patient;
 use app\modules\survey\models\Questionnaire;
 use app\modules\user\models\User;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -215,7 +216,12 @@ class PatientController extends RestController
      */
     public function actionIndex()
     {
-        return Patient::find()->byDoctorId(\Yii::$app->user->identity->doctor->id)->all();
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => Patient::find()->byDoctorId(\Yii::$app->user->identity->doctor->id),
+        ]))->getModels();
     }
 
     /**
@@ -329,9 +335,12 @@ class PatientController extends RestController
             throw new NotFoundHttpException("Patient $id is not found");
         }
 
-        $doctors = $model->getDoctors()->all();
-
-        return $doctors;
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => $model->getDoctors(),
+        ]))->getModels();
     }
 
     /**
@@ -389,9 +398,12 @@ class PatientController extends RestController
             throw new NotFoundHttpException();
         }
 
-        $questionnaires = $model->getQuestionnaires()->all();
-
-        return $questionnaires;
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => $model->getQuestionnaires(),
+        ]))->getModels();
     }
     
     

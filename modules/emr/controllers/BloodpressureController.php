@@ -11,6 +11,7 @@ namespace app\modules\emr\controllers;
 use app\controllers\RestController;
 use app\modules\emr\models\BloodPressure;
 use app\modules\user\models\User;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -175,7 +176,12 @@ class BloodpressureController extends RestController
 
     public function actionIndex($patientid)
     {
-        return BloodPressure::find()->byPatientId($patientid)->all();
+        return (new ActiveDataProvider([
+            'pagination' => [
+                'defaultPageSize' => 10,
+            ],
+            'query' => BloodPressure::find()->byPatientId($patientid),
+        ]))->getModels();
     }
 
     /**
