@@ -179,20 +179,23 @@ class FeedbackController extends RestController
     public function actionIndex($patientid = null)
     {
         if (is_null($patientid)) {
-            return (new ActiveDataProvider([
-                'pagination' => [
-                    'defaultPageSize' => 10,
-                ],
-                'query' => Feedback::find(),
-            ]))->getModels();
+            $query = Feedback::find();
+        } else {
+            $query = Feedback::find()->byPatientId($patientid);
         }
 
-        return (new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'pagination' => [
-                'defaultPageSize' => 10,
+                'pageSize' => 10,
             ],
-            'query' => Feedback::find()->byPatientId($patientid),
-        ]))->getModels();
+            'query' => $query,
+        ]);
+
+        $dataProvider->prepare();
+
+        $this->setPaginationHeaders($dataProvider);
+
+        return $dataProvider->getModels();
     }
 
     /**
@@ -308,5 +311,18 @@ class FeedbackController extends RestController
     private function getFeedbackToArrayConverter()
     {
         return new FeedbackToArrayConverter();
+    }
+
+    /**
+     * @param ActiveDataProvider $dataProvider
+     */
+    private function setPaginationHeaders(ActiveDataProvider $dataProvider)
+    {
+        $headers = \Yii::$app->response->headers;
+
+        $headers->add('X-Pagination-Total-Count', $dataProvider->getTotalCount());
+        $headers->add('X-Pagination-Page-Count', $dataProvider->getPagination()->getPageCount());
+        $headers->add('X-Pagination-Current-Page', $dataProvider->getPagination()->getPage() + 1);
+        $headers->add('X-Pagination-Per-Page', $dataProvider->getCount());
     }
 }

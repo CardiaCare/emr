@@ -106,12 +106,18 @@ class BiosignalController extends RestController
      */
     public function actionIndex()
     {
-        return (new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'pagination' => [
-                'defaultPageSize' => 10,
+                'pageSize' => 10,
             ],
             'query' => Biosignal::find(),
-        ]))->getModels();
+        ]);
+
+        $dataProvider->prepare();
+
+        $this->setPaginationHeaders($dataProvider);
+
+        return $dataProvider->getModels();
     }
 
     /**
@@ -155,5 +161,19 @@ class BiosignalController extends RestController
     public function actionOptions()
     {
         \Yii::$app->response->setStatusCode(200);
+    }
+
+
+    /**
+     * @param ActiveDataProvider $dataProvider
+     */
+    private function setPaginationHeaders(ActiveDataProvider $dataProvider)
+    {
+        $headers = \Yii::$app->response->headers;
+
+        $headers->add('X-Pagination-Total-Count', $dataProvider->getTotalCount());
+        $headers->add('X-Pagination-Page-Count', $dataProvider->getPagination()->getPageCount());
+        $headers->add('X-Pagination-Current-Page', $dataProvider->getPagination()->getPage() + 1);
+        $headers->add('X-Pagination-Per-Page', $dataProvider->getCount());
     }
 }
