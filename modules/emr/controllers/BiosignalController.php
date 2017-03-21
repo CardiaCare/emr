@@ -110,7 +110,9 @@ class BiosignalController extends RestController
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'query' => Biosignal::find(),
+            'query' => Biosignal::find()->orderBy([
+                'created_at' => SORT_DESC,
+            ]),
         ]);
 
         $dataProvider->prepare();

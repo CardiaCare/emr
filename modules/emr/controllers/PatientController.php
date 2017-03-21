@@ -415,7 +415,9 @@ class PatientController extends RestController
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'query' => $model->getQuestionnaires(),
+            'query' => $model->getQuestionnaires()->orderBy([
+                'created_at' => SORT_DESC,
+            ]),
         ]);
 
         $dataProvider->prepare();

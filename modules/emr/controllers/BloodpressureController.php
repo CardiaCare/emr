@@ -180,7 +180,9 @@ class BloodpressureController extends RestController
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'query' => BloodPressure::find()->byPatientId($patientid),
+            'query' => BloodPressure::find()->byPatientId($patientid)->orderBy([
+                'created_at' => SORT_DESC,
+            ]),
         ]);
 
         $dataProvider->prepare();

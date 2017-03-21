@@ -109,7 +109,9 @@ class QuestionnaireController extends RestController
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'query' => Questionnaire::find(),
+            'query' => Questionnaire::find()->orderBy([
+                'created_at' => SORT_DESC,
+            ]),
         ]);
 
         $dataProvider->prepare();

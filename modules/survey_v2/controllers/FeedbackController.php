@@ -188,7 +188,9 @@ class FeedbackController extends RestController
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'query' => $query,
+            'query' => $query->orderBy([
+                'created_at' => SORT_DESC,
+            ]),
         ]);
 
         $dataProvider->prepare();
