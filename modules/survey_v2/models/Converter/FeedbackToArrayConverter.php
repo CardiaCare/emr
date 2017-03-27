@@ -46,7 +46,9 @@ class FeedbackToArrayConverter
                 'id',
                 'answer_id',
                 'responseText' => 'text',
-                'responseFile' => 'response_file_id',
+                'responseFile' => function (Response $model) {
+                    return $model->responseFile->url;
+                },
                 'responseItems' => function (Response $model) {
                     return ArrayHelper::toArray($model->responseItems, [
                         ResponseItem::className() => [

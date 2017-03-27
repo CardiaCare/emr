@@ -34,6 +34,10 @@ class ResponseFactory
             $response->text = $data['responseText'];
         }
 
+        if (!empty($data['responseFile'])) {
+            $response->_fileUrl = $data['responseFile'];
+        }
+
         return $response;
     }
 }
