@@ -5,14 +5,17 @@ namespace app\modules\survey_v2\controllers;
 use app\controllers\RestController;
 use app\modules\survey_v2\models\Converter\FeedbackToArrayConverter;
 use app\modules\survey_v2\models\Feedback;
+use app\modules\survey_v2\models\ResponseFile;
 use app\modules\user\models\User;
 use yii\data\ActiveDataProvider;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
+use yii\web\UploadedFile;
 
 class FeedbackController extends RestController
 {
@@ -24,7 +27,7 @@ class FeedbackController extends RestController
         return [
             'authenticator' => [
                 'class' => CompositeAuth::class,
-                'only' => ['create', 'update', 'index', 'view', 'delete'],
+                'only' => ['create', 'update', 'index', 'view', 'delete', 'upload-response-file'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
@@ -39,7 +42,7 @@ class FeedbackController extends RestController
                     ] ,
                     [
                         'allow' => true,
-                        'actions' => ['create', 'delete'],
+                        'actions' => ['create', 'delete', 'upload-response-file'],
                         'roles' => [User::ROLE_PATIENT],
                     ],
                     [
@@ -300,6 +303,48 @@ class FeedbackController extends RestController
         $model->delete();
 
         \Yii::$app->response->setStatusCode(204);
+    }
+
+    /**
+     * @api {post} /feedback/response-file Upload ResponseFile
+     * @apiVersion 1.0.0
+     * @apiGroup Feedback
+     * @apiName  UploadResponseFile
+     * @apiDescription Uploads response file
+     * @apiParam {File} file Response file
+     * @apiPermission Patient
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 201 Created
+     *      {
+     *          "url": "https://domain/uploads/file.ext"
+     *      }
+     * @apiErrorExample {json} Unauthorized
+     *      HTTP/1.1 401 Unauthorized
+     *      {
+     *          "name":"Unauthorized",
+     *          "message":"You are requesting with an invalid credential.",
+     *          "code":0,
+     *          "status":401
+     *      }
+     */
+    public function actionUploadResponseFile()
+    {
+        $model = new ResponseFile();
+        $model->uploadedFile = UploadedFile::getInstanceByName('file');
+
+        if (!($model->uploadedFile instanceof UploadedFile)) {
+            throw new BadRequestHttpException();
+        }
+
+        if ($model->upload('uploads/patient'.\Yii::$app->user->identity->patient->id.'/')) {
+            \Yii::$app->response->setStatusCode(201);
+
+            return [
+                'url' => $model->url,
+            ];
+        } else {
+            throw new ServerErrorHttpException('Failed to upload response file for unknown reason.');
+        }
     }
 
     public function actionOptions()

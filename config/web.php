@@ -143,6 +143,8 @@ $config = [
                 'GET patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/view',
                 'DELETE patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/delete',
                 'OPTIONS patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/options',
+                'POST feedback/response-file' => 'survey-v2/feedback/upload-response-file',
+                'OPTIONS feedback/response-file' => 'survey-v2/feedback/options',
                 
                 
                 // survey methods
