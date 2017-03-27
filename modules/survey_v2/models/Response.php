@@ -5,10 +5,12 @@ namespace app\modules\survey_v2\models;
 use app\modules\survey_v2\models\Factory\ResponseItemFactory;
 use app\modules\survey_v2\query\ResponseQuery;
 use yii\db\ActiveRecord;
+use yii\web\NotFoundHttpException;
 
 class Response extends ActiveRecord
 {
     public $_items;
+    public $_fileUrl;
 
     /**
      * @return array
@@ -18,8 +20,32 @@ class Response extends ActiveRecord
         return array(
             ['text', 'string'],
             ['answer_id', 'integer'],
-            [['answer_id'], 'required', 'message' => '{attribute} не может быть пустым']
+            [['answer_id'], 'required', 'message' => '{attribute} не может быть пустым'],
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->response_file_id = ResponseFile::find()->where(['url' => $this->_fileUrl])->one()->id;
+
+            if (!$this->response_file_id && $this->_fileUrl) {
+                throw new NotFoundHttpException('Can not found file with url '.$this->_fileUrl);
+            }
+
+            if ($this->response_file_id) {
+                $this->has_file = true;
+            } else {
+                $this->has_file = false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -54,6 +80,11 @@ class Response extends ActiveRecord
     public function getResponseItems()
     {
         return $this->hasMany(ResponseItem::className(), ['response_id' => 'id']);
+    }
+
+    public function getResponseFile()
+    {
+        return $this->hasOne(ResponseFile::className(), ['id' => 'response_file_id']);
     }
 
     /**
