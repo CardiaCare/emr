@@ -53,6 +53,19 @@ class Patient extends ActiveRecord
         ];
     }
 
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        $fields['email'] = function (Patient $model) {
+            $user = User::find()->byId($model->user_id)->one();
+            return $user->email;
+        };
+
+        return $fields;
+    }
+
+
     /**
      * @inheritdoc
      */
