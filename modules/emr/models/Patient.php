@@ -21,6 +21,8 @@ use yii\db\ActiveRecord;
  * @property string $surname
  * @property string $birthday
  * @property string $birthplace
+ * @property float $height
+ * @property float $weight
  * @property integer $gender
  * @property Biosignal[] $biosignals
  * @property \app\modules\organization\models\Organization $organization
@@ -49,6 +51,8 @@ class Patient extends ActiveRecord
                 'tooLong' => 'Фамилия не может быть длиннее 255 символов'],
             ['birthday', 'date', 'format' => 'php:Y-m-d'],
             ['gender', 'boolean'],
+            ['height', 'float'],
+            ['weight', 'float'],
 
         ];
     }
@@ -84,6 +88,8 @@ class Patient extends ActiveRecord
             'birthday' => 'День рождения',
             'birthplace' => 'Место рождения',
             'gender' => 'Пол',
+            'height' => 'Рост',
+            'weight' => 'Вес',
         ];
     }
 
