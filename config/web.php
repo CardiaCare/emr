@@ -6,6 +6,7 @@ use app\modules\organization\OrganizationModule;
 use app\modules\survey\SurveyModule;
 use app\modules\user\UserModule;
 use app\modules\survey_v2\SurveyV2Module;
+use app\modules\biostats\BiostatsModule;
 
 $config = [
     'id' => 'api',
@@ -19,6 +20,7 @@ $config = [
         'archive' => ArchiveModule::class,
         'survey' => SurveyModule::class,
         'survey-v2' => SurveyV2Module::class,
+        'biostats' => BiostatsModule::class,
     ],
     'components' => [
         'request' => [
@@ -145,6 +147,9 @@ $config = [
                 'OPTIONS patients/<patientid:\d+>/feedback/<id:\d+>' => 'survey-v2/feedback/options',
                 'POST feedback/response-file' => 'survey-v2/feedback/upload-response-file',
                 'OPTIONS feedback/response-file' => 'survey-v2/feedback/options',
+
+                //biostats
+                'GET patients/<patientid:\d+>/biostats' => 'biostats/biostats/view',
                 
                 
                 // survey methods
