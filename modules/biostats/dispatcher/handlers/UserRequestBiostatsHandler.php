@@ -149,7 +149,7 @@ private function getPulse($RRIntervals){
                 
         $data = $ecg->getData();
         
-        $RPeaks = searchRR($data);
+        $RPeaks = $this->searchRR($data);
         
         $RRIntervals = getRRIntervals($RPeaks);
         
