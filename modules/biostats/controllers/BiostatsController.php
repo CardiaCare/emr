@@ -93,7 +93,7 @@ class BiostatsController extends RestController
      *          "status": 403
      *      }
      */
-    public function actionView($patientId = null)
+    public function actionView($patientId)
     {
                 return $patientId;
         $patient = Patient::find()->byId($patientId)->one();
