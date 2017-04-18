@@ -44,7 +44,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
         }
         
         $biostats = new UserRequestBiostats();
-        $biostats->setUser($patient);
+        $biostats->setUser($patient->getPrimaryKey());
         $biostats->setHeartRate(80.0);
         $biostats->setMeanRR(20.0);
         $biostats->setNn50(50.0);
