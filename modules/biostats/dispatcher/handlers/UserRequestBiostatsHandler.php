@@ -39,7 +39,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
     // init RPeaks by false values
     $sum = 0;
     $RPeaks  = array();
-    for ($i = 0; i < $signal.count(); $i++ ){
+    for ($i = 0; i < count($signal); $i++ ){
         array_push($RPeaks,false);
         $sum += $signal[$i];
     }
@@ -49,7 +49,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
 
     //search min point in signal
     $min = 255;
-    for ($i = 0; i < $signal.count(); $i++ ){
+    for ($i = 0; i < count($signal); $i++ ){
         if ($signal[$i]  < $min){
             $min = $signal[$i];
         }
@@ -62,21 +62,21 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
     $minPoint = 0;
     $minIndex = 0; $seriesFirst = 0; $seriesLast = 0;
     $Peaks = [];
-    for ($i = 0; i < $signal.count(); $i++ ){
+    for ($i = 0; i < count($signal); $i++ ){
         if($signal[$i] < $threshold ){
             array_push($Peaks, $i);
         }
     }
 
     //find a local min
-    while( $j < $Peaks.count()){
+    while( $j < count($Peaks)){
         $seriesFirst = $j;
         $seriesLast = $j;
 
-        if ($seriesLast < $Peaks.count()-1) {
+        if ($seriesLast < count($Peaks)-1) {
 
             //search for series of points indexes above THRESHOLD
-            while(($Peaks[$seriesLast] == ($Peaks[$seriesLast+1]-1)) & ($seriesLast < ($Peaks.count()-2))){
+            while(($Peaks[$seriesLast] == ($Peaks[$seriesLast+1]-1)) & ($seriesLast < (count($Peaks)-2))){
                 $seriesLast++;
             }
 
@@ -86,7 +86,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
                 $minPoint = $signal[$seriesFirst];
                 $minIndex = $seriesFirst;
                 for ($k = $seriesFirst; $k <= $seriesLast; $k++ ){
-                    if (signal[Peaks[k]] < minPoint){
+                    if ($signal[$Peaks[$k]] < $minPoint){
                         $minPoint = $signal[$Peaks[$k]];
                         $minIndex = $k;
                     }
@@ -116,7 +116,7 @@ private function getRRType($RRInterval){
 private function getRRIntervals($RPeaks){
     //search RR-intervals
     $RRIntervals = array();
-    for ($i = 0; $i < $RPeaks.count()-1; $i++ ){
+    for ($i = 0; $i < count($RPeaks)-1; $i++ ){
         $rr = ($RPeaks[i+1]-$RPeaks[i])/ 300.0;
         array_push($RRIntervals, $rr);
         //qDebug() <<  rr <<" RR-interval\n";
@@ -126,7 +126,7 @@ private function getRRIntervals($RPeaks){
 
 private function getPulse($RRIntervals){
     $HeartRate = array();
-    for ($i = 0; $i < $RRIntervals.size(); $i++ ){
+    for ($i = 0; $i < size($RRIntervals); $i++ ){
         array_push($HeartRate, round(60.0/$RRIntervals[$i]));
     }
     
