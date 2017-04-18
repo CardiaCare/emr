@@ -95,15 +95,14 @@ class BiostatsController extends RestController
      */
     public function actionView($patientId = null)
     {
-        
+                return $patientId;
         $patient = Patient::find()->byId($patientId)->one();
-
         if ($patient == null) {
             throw new NotFoundHttpException();
         }
         
         $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest($patient));
-return $patientId;
+
         //return $biostats->serialize();
     }
     
