@@ -42,7 +42,6 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
 
         $avg = $sum / $signal . count();
 
-
         //search min point in signal
         $min = 255;
         for ($i = 0; i < count($signal); $i++) {
@@ -50,7 +49,6 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
                 $min = $signal[$i];
             }
         }
-
         //get THRESCHOLD
         $threshold = $avg - ($avg - $min) * 3 / 5;
 
@@ -72,12 +70,11 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
             $seriesLast = $j;
 
             if ($seriesLast < count($Peaks) - 1) {
-
                 //search for series of points indexes above THRESHOLD
-                while (($Peaks[$seriesLast] == ($Peaks[$seriesLast + 1] - 1)) & ($seriesLast < (count($Peaks) - 2))) {
+                while (($Peaks[$seriesLast] == ($Peaks[$seriesLast + 1] - 1)) 
+                        & ($seriesLast < (count($Peaks) - 2))) {
                     $seriesLast++;
                 }
-
                 //search peaks
                 if ($seriesLast > $seriesFirst) {
                     //search local min
@@ -89,8 +86,6 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
                             $minIndex = $k;
                         }
                     }
-
-//                RPeaks.push_back(Peaks[minIndex]);
                     $RPeaks[$Peaks[$minIndex]] = true;
                 }
             }
@@ -100,14 +95,15 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
     }
 
     private function getRRType($RRInterval) {
-        if ((60.0 / $RRInterval < 80.0) & (60.0 / $RRInterval > 60.0))
+        if ((60.0 / $RRInterval < 80.0) & (60.0 / $RRInterval > 60.0)) {
             return "Normal";
-        else
-        if ((60.0 / $RRInterval < 60.0) & (60.0 / $RRInterval > 20.0))
+        } else
+        if ((60.0 / $RRInterval < 60.0) & (60.0 / $RRInterval > 20.0)) {
             return "Bradycardia";
-        else
-        if (60.0 / $RRInterval < 300.0)
+        } else
+        if (60.0 / $RRInterval < 300.0) {
             return "Tachycardia";
+        }
         return "Exeption";
     }
 
@@ -117,7 +113,6 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
         for ($i = 0; $i < count($RPeaks) - 1; $i++) {
             $rr = ($RPeaks[i + 1] - $RPeaks[i]) / 300.0;
             array_push($RRIntervals, $rr);
-            //qDebug() <<  rr <<" RR-interval\n";
         }
         return $RRIntervals;
     }

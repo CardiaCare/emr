@@ -137,7 +137,6 @@ class UserRequestBiostats extends Biostats
     public function serialize()
     {
         return [
-            'user' => $this->user,
             'mean_r_r' => $this->meanRR,
             'heart_rate' => $this->heartRate,
             'range' => $this->range,
