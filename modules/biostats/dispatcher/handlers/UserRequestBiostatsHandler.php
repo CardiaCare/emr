@@ -30,7 +30,9 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
      */
     private function createBiostats()
     {
-        $patient = UserRequestBiostatsRequest::getPatient();
+        $obj = new UserRequestBiostatsRequest();
+     
+        $patient = $obj->getPatient();
         
         $biostats = new UserRequestBiostats();
         $biostats->setUser($patient->id);
