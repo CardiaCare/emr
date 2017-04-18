@@ -39,9 +39,9 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
     // init RPeaks by false values
     $sum = 0;
     $RPeaks  = array();
-    foreach ($signal as $dot ){
+    for ($i = 0; i < $signal.count(); $i++ ){
         array_push($RPeaks,false);
-        $sum += $dot;
+        $sum += $signal[$i];
     }
     
     $avg = $sum/$signal.count();
@@ -49,9 +49,9 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
 
     //search min point in signal
     $min = 255;
-    foreach ($signal as $dot ){
-        if ($dot < $min){
-            $min = $dot;
+    for ($i = 0; i < $signal.count(); $i++ ){
+        if ($signal[$i]  < $min){
+            $min = $signal[$i];
         }
     }
 
