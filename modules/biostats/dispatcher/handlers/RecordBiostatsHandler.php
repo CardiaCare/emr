@@ -3,8 +3,8 @@
 namespace app\modules\biostats\dispatcher\handlers;
 
 use app\modules\biostats\models\Biostats;
-use app\modules\biostats\dispatcher\BiostatsHandlerInterface;
 use app\modules\biostats\models\RecordBiostats;
+use app\modules\biostats\dispatcher\BiostatsHandlerInterface;
 use app\modules\biostats\dispatcher\request\BiostatsRequest;
 use app\modules\biostats\dispatcher\request\RecordBiostatsRequest;
 

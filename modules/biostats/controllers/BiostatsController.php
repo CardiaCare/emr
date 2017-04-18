@@ -99,7 +99,7 @@ class BiostatsController extends RestController
         return $biostats->serialize();
     }
     
-        public function actionCreate($patientId = null)
+    public function actionCreate($patientId = null)
     {
         $biostats = $this->getRecordBiostatsHandler()->dispatch(new RecordBiostatsHandler());
 
@@ -118,4 +118,9 @@ class BiostatsController extends RestController
     {
         return new BiostatsDispatcher();
     }
+        private function getRecordBiostatsHandler()
+    {
+        return new BiostatsDispatcher();
+    }
+    
 }
