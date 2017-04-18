@@ -103,8 +103,8 @@ class BiostatsController extends RestController
         }
         
         $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest($patient));
-
-        return $biostats->serialize();
+return $patientId;
+        //return $biostats->serialize();
     }
     
     public function actionCreate($patientId = null)
