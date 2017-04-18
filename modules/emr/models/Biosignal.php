@@ -39,8 +39,9 @@ class Biosignal extends ActiveRecord
         return parent::beforeSave($insert);
     }
     
-    public static function getData()
+    public function getData()
     {
+        $this->data = Json::encode($this->data);
         return $this->data;
     }
 
