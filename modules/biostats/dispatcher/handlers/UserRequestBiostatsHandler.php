@@ -12,6 +12,8 @@ use app\modules\biostats\dispatcher\request\UserRequestBiostatsRequest;
 
 class UserRequestBiostatsHandler implements BiostatsHandlerInterface
 {
+    
+    protected $request;
     /**
      * @param BiostatsRequest $request
      * @return Biostats
@@ -21,7 +23,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
         if (!($request instanceof UserRequestBiostatsRequest)) {
             throw new \InvalidArgumentException();
         }
-
+        $this->$request = $request;
         return $this->createBiostats();
     }
 
