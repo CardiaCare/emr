@@ -12,8 +12,10 @@ use app\modules\biostats\dispatcher\request\UserRequestBiostatsRequest;
 
 class UserRequestBiostatsHandler implements BiostatsHandlerInterface
 {
-    
-    protected $request;
+    /**
+     * @var UserRequestBiostatsRequest
+     */
+    //protected $request;
     /**
      * @param BiostatsRequest $request
      * @return Biostats
@@ -23,14 +25,14 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
         if (!($request instanceof UserRequestBiostatsRequest)) {
             throw new \InvalidArgumentException();
         }
-        $this->$request = $request;
-        return $this->createBiostats();
+        //$this->$request = $request;
+        return $this->createBiostats($request);
     }
 
     /**
      * @return UserRequestBiostats
      */
-    private function createBiostats()
+    private function createBiostats(UserRequestBiostatsRequest $request)
     {
         
         $patient = $request->getPatient();
