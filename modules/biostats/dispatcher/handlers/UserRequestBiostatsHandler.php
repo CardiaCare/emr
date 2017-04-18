@@ -37,7 +37,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
         
         $patient = $request->getPatient();
         
-        $ecg = Biosignal::find()->byId(938)->byPatientId($patientid)->one();
+        $ecg = Biosignal::find()->byId(938)->byPatientId($patient.id)->one();
 
         if ($ecg == null) {
             throw new NotFoundHttpException();
