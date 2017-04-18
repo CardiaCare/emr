@@ -38,7 +38,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
     //search average point in signal
     // init RPeaks by false values
     $sum = 0;
-    $RPeaks = [];
+    $RPeaks  = array();
     foreach ($signal as $dot ){
         array_push($RPeaks,false);
         $sum += $dot;
@@ -115,7 +115,7 @@ private function getRRType($RRInterval){
 
 private function getRRIntervals($RPeaks){
     //search RR-intervals
-    $RRIntervals = [];
+    $RRIntervals = array();
     for ($i = 0; $i < $RPeaks.count()-1; $i++ ){
         $rr = ($RPeaks[i+1]-$RPeaks[i])/ 300.0;
         array_push($RRIntervals, $rr);
@@ -125,7 +125,7 @@ private function getRRIntervals($RPeaks){
 }
 
 private function getPulse($RRIntervals){
-    $HeartRate = [];
+    $HeartRate = array();
     for ($i = 0; $i < $RRIntervals.size(); $i++ ){
         array_push($HeartRate, round(60.0/$RRIntervals[$i]));
     }
@@ -151,9 +151,9 @@ private function getPulse($RRIntervals){
         
         $RPeaks = $this->searchRR($data);
         
-        $RRIntervals = getRRIntervals($RPeaks);
+        $RRIntervals = $this->getRRIntervals($RPeaks);
         
-        $HeartRate = getPulse($RRIntervals);
+        $HeartRate = $this->getPulse($RRIntervals);
         
         $sum = 0;
         foreach ($HeartRate as $dot ){
