@@ -126,6 +126,87 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
         return $HeartRate;
     }
 
+    private function NN50Histogram($RR) {
+        $NN50 = 0.0;
+        for ($i = 0; $i < (count($RR) - 1); $i++){
+        //0,5 -> 50 ms
+            if ( ($RR[$i+1].timestamp - $RR[$i].timestamp) > 0.5){
+                $NN50++;
+            }
+        }
+
+        return $NN50;
+    }
+
+    private function pNN50Histogram($RR) {
+        return ($this->NN50Histogram($RR) / count($RR));
+    }
+
+    private function RMSSDHistogram($RR) {
+        $RMSSD = 0.0;
+
+        for ($i = 0; $i < (count($RR) - 1); $i++){
+            $RMSSD += pow($RR[$i + 1] . timestamp - $RR[$i] . timestamp, 2);
+        }
+
+        $RMSSD /= (count($RR) - 1);
+        $RMSSD = sqrt($RMSSD);
+
+        return $RMSSD;
+    }
+
+    private function SDNNHistogram($histogram) {
+        $SDNN = 0.0;
+        $MatOj = 0.0;
+
+        for ($i = 0; $i < count($histogram); $i++){
+            $MatOj = $histogram[$i] + $MatOj;
+        }
+        $MatOj = $MatOj / count($histogram);
+
+        for ($i = 0; $i < count($histogram); $i++){
+            $SDNN = pow(($histogram[i] - $MatOj), 2) + $SDNN;
+        }
+        $SDNN = $SDNN / (count($histogram) - 1);
+        return $SDNN;
+    }
+    private function moHistogram($histogram, $RR) {
+        $max = $histogram[0];
+
+        for ($i = 1; $i < count($RR); $i++) {
+            if ($RR[$i] . timestamp > $max){
+                $max = $histogram[i];
+            }
+        }
+        return $max;
+    }
+        
+    private function amoHistogram($histogram, $RR) {
+        return $this->moHistogram($histogram, $RR) / count($RR);
+    }
+
+
+    private function VARHistogram($RR) {
+        $max = $RR[0] . timestamp;
+        $min = $RR[0] . timestamp;
+
+        for ($i = 1; $i < count(RR); $i++) {
+            if ($RR[$i] . timestamp > $max) {
+                $max = $RR[$i] . timestamp;
+            } else {
+                if ($RR[$i].timestamp < $min) {
+                    $min = $RR[$i].timestamp;
+                }
+            }
+        }
+
+        return ($max - $min);
+    }
+
+    private function PAPRHistogram($histogram, $RR) {
+        return $this->amoHistogram($histogram, $RR) / $this->moHistogram($histogram, $RR);
+    }
+
     /**
      * @return UserRequestBiostats
      */
