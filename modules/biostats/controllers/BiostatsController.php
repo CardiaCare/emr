@@ -5,6 +5,7 @@ namespace app\modules\biostats\controllers;
 use app\controllers\RestController;
 use app\modules\biostats\dispatcher\BiostatsDispatcher;
 use app\modules\biostats\dispatcher\request\UserRequestBiostatsRequest;
+use app\modules\biostats\dispatcher\request\RecordBiostatsRequest;
 use app\modules\user\models\User;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -36,7 +37,7 @@ class BiostatsController extends RestController
                     ]  ,
                     [
                         'allow'   => true,
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view','create'],
                         'roles'   => [User::ROLE_DOCTOR, User::ROLE_PATIENT],
                     ]
                 ],
@@ -94,6 +95,13 @@ class BiostatsController extends RestController
     public function actionView($patientId = null)
     {
         $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest());
+
+        return $biostats->serialize();
+    }
+    
+        public function actionCreate($patientId = null)
+    {
+        $biostats = $this->getRecordBiostatsHandler()->dispatch(new RecordBiostatsHandler());
 
         return $biostats->serialize();
     }

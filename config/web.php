@@ -150,6 +150,8 @@ $config = [
 
                 //biostats
                 'GET patients/<patientid:\d+>/biostats' => 'biostats/biostats/view',
+                'GET patients/<patientid:\d+>/biostats2' => 'biostats/biostats/create',
+                'OPTIONS patients/<patientid:\d+>/biostats' => 'biostats/biostats/options',
                 
                 
                 // survey methods
