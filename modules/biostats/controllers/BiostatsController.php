@@ -22,7 +22,7 @@ class BiostatsController extends RestController
         return [
             'authenticator' => [
                 'class'       => CompositeAuth::class,
-                'only' => ['index', 'view'],
+                'only' => ['index', 'view','create'],
                 'authMethods' => [
                     HttpBasicAuth::class,
                 ],
