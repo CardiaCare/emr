@@ -38,6 +38,11 @@ class Biosignal extends ActiveRecord
         }
         return parent::beforeSave($insert);
     }
+    
+    public static function getData()
+    {
+        return $this->data;
+    }
 
     /**
      * @inheritdoc

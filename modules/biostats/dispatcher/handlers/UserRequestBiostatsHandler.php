@@ -42,10 +42,24 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
         if ($ecg == null) {
             throw new NotFoundHttpException();
         }
+                
+        $data = $ecg->getData();
         
+        $RPeaks = searchRR($data);
+        
+        $RRIntervals = getRRIntervals($RPeaks);
+        
+        $HeartRate = getPulse($RRIntervals);
+        
+        $sum = 0;
+        foreach ($HeartRate as $dot ){
+           $sum += $dot;
+        }   
+        $pulse = $sum/$HeartRate.count();
+                
         $biostats = new UserRequestBiostats();
         $biostats->setUser($patient->getPrimaryKey());
-        $biostats->setHeartRate(80.0);
+        $biostats->setHeartRate($pulse);
         $biostats->setMeanRR(20.0);
         $biostats->setNn50(50.0);
         $biostats->setPnn50(51.0);
@@ -59,4 +73,110 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
 
         return $biostats;
     }
+        
+    private function searchRR($signal){
+
+    // stores index of signal's points, that higher THRESHOLD
+
+
+    //search average point in signal
+    // init RPeaks by false values
+    $sum = 0;
+    $RPeaks = [];
+    foreach ($signal as $dot ){
+        array_push($RPeaks,false);
+        $sum += $dot;
+    }
+    
+    $avg = $sum/$signal.count();
+
+
+    //search min point in signal
+    $min = 255;
+    foreach ($signal as $dot ){
+        if ($dot < $min){
+            $min = $dot;
+        }
+    }
+
+    //get THRESCHOLD
+    $threshold = $avg - ($avg-$min)*3/5;
+   
+    $j = 0;
+    $minPoint = 0;
+    $minIndex = 0; $seriesFirst = 0; $seriesLast = 0;
+    $Peaks = [];
+    for ($i = 0; i < $signal.count(); $i++ ){
+        if($signal[$i] < $threshold ){
+            array_push($Peaks, $i);
+        }
+    }
+
+    //find a local min
+    while( $j < $Peaks.count()){
+        $seriesFirst = $j;
+        $seriesLast = $j;
+
+        if ($seriesLast < $Peaks.count()-1) {
+
+            //search for series of points indexes above THRESHOLD
+            while(($Peaks[$seriesLast] == ($Peaks[$seriesLast+1]-1)) & ($seriesLast < ($Peaks.count()-2))){
+                $seriesLast++;
+            }
+
+            //search peaks
+            if ($seriesLast > $seriesFirst){
+                //search local min
+                $minPoint = $signal[$seriesFirst];
+                $minIndex = $seriesFirst;
+                for ($k = $seriesFirst; $k <= $seriesLast; $k++ ){
+                    if (signal[Peaks[k]] < minPoint){
+                        $minPoint = $signal[$Peaks[$k]];
+                        $minIndex = $k;
+                    }
+                }
+
+//                RPeaks.push_back(Peaks[minIndex]);
+                $RPeaks[$Peaks[$minIndex]] = true;
+            }
+        }
+        $j = $seriesLast + 1;
+    }
+    return $RPeaks;
+}
+
+private function getRRType($RRInterval){
+    if ((60.0/$RRInterval < 80.0) & (60.0/$RRInterval > 60.0))
+        return "Normal";
+    else
+        if ((60.0/$RRInterval < 60.0) & (60.0/$RRInterval > 20.0))
+            return "Bradycardia";
+        else
+            if (60.0/$RRInterval < 300.0)
+                return "Tachycardia";
+    return "Exeption";
+}
+
+private function getRRIntervals($RPeaks){
+    //search RR-intervals
+    $RRIntervals = [];
+    for ($i = 0; $i < $RPeaks.count()-1; $i++ ){
+        $rr = ($RPeaks[i+1]-$RPeaks[i])/ 300.0;
+        array_push($RRIntervals, $rr);
+        //qDebug() <<  rr <<" RR-interval\n";
+    }
+    return $RRIntervals;
+}
+
+private function getPulse($RRIntervals){
+    $HeartRate = [];
+    for ($i = 0; $i < $RRIntervals.size(); $i++ ){
+        array_push($HeartRate, round(60.0/$RRIntervals[$i]));
+    }
+    
+    return $HeartRate;
+}
+
+
+
 }
