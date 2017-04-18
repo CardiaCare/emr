@@ -151,15 +151,15 @@ private function getPulse($RRIntervals){
         
         $RPeaks = $this->searchRR($data);
         
-        $RRIntervals = $this->getRRIntervals($RPeaks);
-        
-        $HeartRate = $this->getPulse($RRIntervals);
-        
-        $sum = 0;
-        foreach ($HeartRate as $dot ){
-           $sum += $dot;
-        }   
-        $pulse = $sum/$HeartRate.count();
+//        $RRIntervals = $this->getRRIntervals($RPeaks);
+//        
+//        $HeartRate = $this->getPulse($RRIntervals);
+//        
+//        $sum = 0;
+//        foreach ($HeartRate as $dot ){
+//           $sum += $dot;
+//        }   
+//        $pulse = $sum/$HeartRate.count();
                 
         $biostats = new UserRequestBiostats();
         $biostats->setUser($patient->getPrimaryKey());
