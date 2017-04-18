@@ -93,19 +93,18 @@ class BiostatsController extends RestController
      *          "status": 403
      *      }
      */
-    public function actionView($id)
+    public function actionView($patientid)
     {
-                return $id;
-//        $patient = Patient::find()->byId($patientId)->one();
-//        if ($patient == null) {
-//            throw new NotFoundHttpException();
-//        }
-//        
-//        $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest($patient));
-//        return $biostats->serialize();
+        $patient = Patient::find()->byId($patientid)->one();
+        if ($patient == null) {
+            throw new NotFoundHttpException();
+        }
+        
+        $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest($patient));
+        return $biostats->serialize();
     }
     
-    public function actionCreate($patientId = null)
+    public function actionCreate($patientid = null)
     {
         $biostats = $this->getRecordBiostatsHandler()->dispatch(new RecordBiostatsHandler());
 
