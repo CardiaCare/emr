@@ -3,6 +3,8 @@
 namespace app\modules\biostats\dispatcher\handlers;
 
 use app\modules\biostats\models\Biostats;
+use app\modules\emr\models\Biosignal;
+use app\modules\emr\models\Patient;
 use app\modules\biostats\models\UserRequestBiostats;
 use app\modules\biostats\dispatcher\BiostatsHandlerInterface;
 use app\modules\biostats\dispatcher\request\BiostatsRequest;
@@ -28,7 +30,10 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
      */
     private function createBiostats()
     {
+        $patient = getPatient();
+        
         $biostats = new UserRequestBiostats();
+        $biostats->setUser($patient->id);
         $biostats->setHeartRate(80.0);
         $biostats->setMeanRR(20.0);
         $biostats->setNn50(50.0);
