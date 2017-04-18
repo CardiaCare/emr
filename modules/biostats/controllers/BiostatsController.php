@@ -7,6 +7,7 @@ use app\modules\biostats\dispatcher\BiostatsDispatcher;
 use app\modules\biostats\dispatcher\request\UserRequestBiostatsRequest;
 use app\modules\biostats\dispatcher\request\RecordBiostatsRequest;
 use app\modules\user\models\User;
+use app\modules\emr\models\Patient;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\filters\auth\CompositeAuth;
