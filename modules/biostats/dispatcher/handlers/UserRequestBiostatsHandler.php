@@ -29,51 +29,7 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface
         return $this->createBiostats($request);
     }
 
-    /**
-     * @return UserRequestBiostats
-     */
-    private function createBiostats(UserRequestBiostatsRequest $request)
-    {
-        
-        $patient = $request->getPatient();
-        
-        $ecg = Biosignal::find()->byId(938)->byPatientId($patient->getPrimaryKey())->one();
-
-        if ($ecg == null) {
-            throw new NotFoundHttpException();
-        }
-                
-        $data = $ecg->getData();
-        
-        $RPeaks = searchRR($data);
-        
-        $RRIntervals = getRRIntervals($RPeaks);
-        
-        $HeartRate = getPulse($RRIntervals);
-        
-        $sum = 0;
-        foreach ($HeartRate as $dot ){
-           $sum += $dot;
-        }   
-        $pulse = $sum/$HeartRate.count();
-                
-        $biostats = new UserRequestBiostats();
-        $biostats->setUser($patient->getPrimaryKey());
-        $biostats->setHeartRate($pulse);
-        $biostats->setMeanRR(20.0);
-        $biostats->setNn50(50.0);
-        $biostats->setPnn50(51.0);
-        $biostats->setRange(100.0);
-        $biostats->setAmo(100.0);
-        $biostats->setIvb(30.0);
-        $biostats->setRpai(20.0);
-        $biostats->setTensionIndex(549.0);
-        $biostats->setTI(55.0);
-        $biostats->setVri(123.0);
-
-        return $biostats;
-    }
-        
+       
     private function searchRR($signal){
 
     // stores index of signal's points, that higher THRESHOLD
@@ -177,6 +133,49 @@ private function getPulse($RRIntervals){
     return $HeartRate;
 }
 
+    /**
+     * @return UserRequestBiostats
+     */
+    private function createBiostats(UserRequestBiostatsRequest $request)
+    {
+        
+        $patient = $request->getPatient();
+        
+        $ecg = Biosignal::find()->byId(938)->byPatientId($patient->getPrimaryKey())->one();
 
+        if ($ecg == null) {
+            throw new NotFoundHttpException();
+        }
+                
+        $data = $ecg->getData();
+        
+        $RPeaks = searchRR($data);
+        
+        $RRIntervals = getRRIntervals($RPeaks);
+        
+        $HeartRate = getPulse($RRIntervals);
+        
+        $sum = 0;
+        foreach ($HeartRate as $dot ){
+           $sum += $dot;
+        }   
+        $pulse = $sum/$HeartRate.count();
+                
+        $biostats = new UserRequestBiostats();
+        $biostats->setUser($patient->getPrimaryKey());
+        $biostats->setHeartRate($pulse);
+        $biostats->setMeanRR(20.0);
+        $biostats->setNn50(50.0);
+        $biostats->setPnn50(51.0);
+        $biostats->setRange(100.0);
+        $biostats->setAmo(100.0);
+        $biostats->setIvb(30.0);
+        $biostats->setRpai(20.0);
+        $biostats->setTensionIndex(549.0);
+        $biostats->setTI(55.0);
+        $biostats->setVri(123.0);
+
+        return $biostats;
+    }
 
 }
