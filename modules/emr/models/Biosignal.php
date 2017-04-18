@@ -4,6 +4,7 @@ namespace app\modules\emr\models;
 
 use app\modules\emr\models\Patient;
 use app\modules\emr\query\BiosignalQuery;
+use yii\helpers\Json;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
