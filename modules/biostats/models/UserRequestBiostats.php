@@ -8,8 +8,7 @@ class UserRequestBiostats extends Biostats
      * @var float
      */
     protected $amo;
-    
-    protected $user;
+
 
     /**
      * @var float
@@ -50,11 +49,6 @@ class UserRequestBiostats extends Biostats
     public function setAmo(float $amo)
     {
         $this->amo = $amo;
-    }
-    
-        public function setUser(float $user)
-    {
-        $this->user = $user;
     }
 
     /**

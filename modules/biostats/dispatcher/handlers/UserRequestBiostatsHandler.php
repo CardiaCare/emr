@@ -158,9 +158,9 @@ class UserRequestBiostatsHandler implements BiostatsHandlerInterface {
 //           $sum += $dot;
 //        }   
 //        $pulse = $sum/$HeartRate.count();
+        $pulse = 80.0;
                 
         $biostats = new UserRequestBiostats();
-        $biostats->setUser($patient->getPrimaryKey());
         $biostats->setHeartRate($pulse);
         $biostats->setMeanRR(20.0);
         $biostats->setNn50(50.0);
