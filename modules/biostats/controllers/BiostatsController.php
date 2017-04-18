@@ -100,7 +100,7 @@ class BiostatsController extends RestController
             throw new NotFoundHttpException();
         }
         
-        $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest($patient));
+        $biostats = $this->getUserRequestBiostatsHandler()->dispatch(new UserRequestBiostatsRequest(null, null, $patient));
         return $biostats->serialize();
     }
     
