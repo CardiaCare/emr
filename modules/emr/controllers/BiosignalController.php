@@ -106,13 +106,18 @@ class BiosignalController extends RestController
      */
     public function actionIndex()
     {
+        $startDate = \Yii::$app->request->get('startDate') ? date('Y-m-d H:i:s', \Yii::$app->request->get('startDate')/1000) : date('Y-m-d H:i:s', 0);
+        $endDate = \Yii::$app->request->get('endDate') ? date('Y-m-d H:i:s', \Yii::$app->request->get('endDate')/1000) : (new \DateTime('now'))->format('Y-m-d H:i:s');
+
         $dataProvider = new ActiveDataProvider([
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'query' => Biosignal::find()->orderBy([
-                'created_at' => SORT_DESC,
-            ]),
+            'query' => Biosignal::find()->where(['between', 'created_at', $startDate, $endDate,])
+                ->orderBy([
+                    'created_at' => SORT_ASC,
+                ])
+            ,
         ]);
 
         $dataProvider->prepare();
